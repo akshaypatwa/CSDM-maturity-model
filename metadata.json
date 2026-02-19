@@ -1,0 +1,5 @@
+{
+  "name": "CSDM Maturity Simulator",
+  "description": "An interactive, animated executive dashboard visualizing the ServiceNow CSDM maturity journey from Foundation to Fly.",
+  "requestFramePermissions": []
+}
