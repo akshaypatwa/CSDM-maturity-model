@@ -12,73 +12,104 @@ const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => 
     <div className="w-full flex flex-col items-center justify-center py-4">
       {/* Title */}
       <div className="text-center mb-6">
-        <h1 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 tracking-tight filter drop-shadow-lg">
+        <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 tracking-tight filter drop-shadow-sm">
           CSDM MATURITY SIMULATOR
         </h1>
-        <p className="text-slate-400 text-xs font-bold tracking-[0.3em] uppercase mt-1">
+        <p className="text-slate-500 text-xs font-bold tracking-[0.4em] uppercase mt-2">
           Strategic Transformation Journey
         </p>
       </div>
 
-      {/* Enhanced Stepper */}
-      <div className="relative w-full max-w-6xl px-8">
-        {/* Background Track */}
-        <div className="absolute top-[2.5rem] left-0 w-full h-3 bg-slate-800/50 -translate-y-1/2 rounded-full hidden md:block backdrop-blur-sm border border-slate-700/50" />
+      {/* Enhanced Stepper Container - Light Glass Cockpit Look */}
+      <div className="relative w-full max-w-6xl px-4 md:px-12 py-6 bg-white/60 backdrop-blur-xl rounded-full border border-slate-200 shadow-xl overflow-hidden">
+        {/* Decorative Grid inside navbar */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
         
-        {/* Active Progress Bar */}
+        {/* The Track Line */}
+        <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-200 -translate-y-1/2 z-0"></div>
+        
+        {/* Animated Active Progress Line (Data Flow) */}
         <motion.div 
-          className="absolute top-[2.5rem] left-0 h-3 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 -translate-y-1/2 rounded-full hidden md:block z-0 shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+          className="absolute top-1/2 left-0 h-1 -translate-y-1/2 z-0"
+          style={{ 
+              background: 'linear-gradient(90deg, #06b6d4, #3b82f6, #a855f7, #06b6d4)', 
+              backgroundSize: '200% 100%' 
+          }}
           initial={{ width: '0%' }}
-          animate={{ width: `${(currentStageIndex / (STAGES.length - 1)) * 100}%` }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          animate={{ 
+              width: `${(currentStageIndex / (STAGES.length - 1)) * 100}%`,
+              backgroundPosition: ['0% 0%', '100% 0%'] 
+          }}
+          transition={{ 
+              width: { duration: 0.6, ease: "easeInOut" },
+              backgroundPosition: { duration: 2, repeat: Infinity, ease: "linear" } 
+          }}
         />
 
-        <div className="flex justify-between items-start relative z-10">
+        <div className="flex justify-between items-center relative z-10 w-full">
           {STAGES.map((stage, index) => {
             const Icon = STAGE_ICONS[stage.id];
             const isActive = index === currentStageIndex;
             const isCompleted = index < currentStageIndex;
             
             return (
-              <div key={stage.id} className="flex flex-col items-center group cursor-pointer w-32" onClick={() => onStageSelect(index)}>
+              <div key={stage.id} className="flex flex-col items-center group cursor-pointer relative" onClick={() => onStageSelect(index)}>
+                
+                {/* Connection Dot on Line */}
+                <div className={`absolute top-[2.5rem] md:top-[3rem] w-full h-[2px] ${index === 0 ? 'hidden' : ''} ${isCompleted || isActive ? 'bg-cyan-500' : 'bg-slate-200'} -left-1/2 -z-10`} />
+
                 {/* Icon Container */}
                 <motion.div
                   className={`
-                    w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center border-[3px] transition-all duration-300 relative mb-3
+                    w-12 h-12 md:w-24 md:h-24 rounded-full flex items-center justify-center border-[3px] transition-all duration-300 relative mb-3
                     ${isActive 
-                      ? 'bg-slate-900 border-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.5)] z-20 scale-110' 
+                      ? 'bg-white border-cyan-500 shadow-[0_0_30px_rgba(6,182,212,0.4)] z-20 scale-110' 
                       : isCompleted 
-                        ? 'bg-slate-800 border-blue-500 text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.3)]' 
-                        : 'bg-slate-900/80 border-slate-700 text-slate-600'}
+                        ? 'bg-white border-blue-500 text-blue-500 shadow-md' 
+                        : 'bg-slate-50 border-slate-300 text-slate-400'}
                   `}
-                  whileHover={{ scale: 1.15, y: -2 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Icon 
-                    size={32} 
+                    size={isActive ? 36 : 24} 
                     strokeWidth={isActive ? 2.5 : 2}
                     className={`
-                      transition-colors duration-300
-                      ${isActive ? 'text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]' : isCompleted ? 'text-blue-400' : 'text-slate-600'}
+                      transition-all duration-300
+                      ${isActive ? 'text-cyan-600 drop-shadow-md' : isCompleted ? 'text-blue-500' : 'text-slate-400'}
                     `} 
                   />
                   
-                  {/* Active Ring Pulse */}
+                  {/* Rotating Ring for Active */}
                   {isActive && (
-                    <div className="absolute -inset-2 rounded-3xl border border-cyan-500/30 animate-ping"></div>
+                    <motion.div 
+                        className="absolute inset-[-6px] rounded-full border-2 border-cyan-500/30 border-t-transparent border-l-transparent"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    />
+                  )}
+                  {/* Pulse Ring */}
+                  {isActive && (
+                    <div className="absolute inset-0 rounded-full bg-cyan-400/10 animate-ping"></div>
                   )}
                 </motion.div>
                 
                 {/* Label Block */}
-                <div className="flex flex-col items-center gap-1">
+                <div className="flex flex-col items-center gap-1 absolute top-full mt-2 w-32 text-center">
                     <span className={`
-                    text-xs md:text-sm font-black tracking-widest transition-colors duration-300 uppercase
-                    ${isActive ? 'text-white' : isCompleted ? 'text-slate-400' : 'text-slate-600'}
+                    text-[10px] md:text-sm font-black tracking-widest transition-all duration-300 uppercase
+                    ${isActive ? 'text-slate-900 scale-110' : isCompleted ? 'text-blue-600' : 'text-slate-400'}
                     `}>
                     {stage.title}
                     </span>
-                    <span className={`text-[10px] text-slate-500 font-medium ${isActive ? 'opacity-100' : 'opacity-0'} transition-opacity`}>
-                        Phase {index + 1}
+                    
+                    {/* Active Indicator Label */}
+                    <span className={`
+                        text-[8px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider
+                        ${isActive ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 opacity-100' : 'opacity-0'}
+                        transition-opacity duration-300
+                    `}>
+                        CURRENT STAGE
                     </span>
                 </div>
               </div>
