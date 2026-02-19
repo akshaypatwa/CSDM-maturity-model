@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StageData, ViewMode, StageId } from '../types';
-import { Activity, Database, Box, CheckCircle2, Bot, Wind, Cloud, Zap, Scan, Network, Globe, Radio, Play } from 'lucide-react';
+import { Activity, Database, Box, CheckCircle2, Bot, Wind, Cloud, Zap, Scan, Network, Globe, Radio, Play, Hexagon } from 'lucide-react';
 import StageVisualizer from './StageVisualizer';
 
 interface ContentPanelProps {
@@ -11,8 +11,7 @@ interface ContentPanelProps {
 
 const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode }) => {
   const items = stage.items[viewMode];
-  const letterGrade = stage.maturity >= 90 ? 'A' : stage.maturity >= 75 ? 'B' : stage.maturity >= 50 ? 'C' : stage.maturity >= 25 ? 'D' : 'E';
-
+  
   // Determine accent color based on stage for the cards
   const getStageColor = (id: string) => {
     switch(id) {
@@ -35,56 +34,80 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode }) => {
           ======================= */}
       <div className="col-span-1 lg:col-span-3 flex flex-col h-full overflow-hidden">
         <motion.div 
-          className="flex-1 bg-slate-900/60 backdrop-blur-md border border-slate-700/50 rounded-3xl p-6 flex flex-col relative overflow-hidden shadow-xl"
+          className="flex-1 bg-slate-900/60 backdrop-blur-md border border-slate-700/50 rounded-3xl p-5 flex flex-col relative overflow-hidden shadow-xl"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           key={`kpi-panel-${stage.id}`}
         >
            {/* Header */}
-          <div className="flex items-center gap-3 mb-4 border-b border-slate-800 pb-3">
+          <div className="flex items-center gap-3 mb-2 border-b border-slate-800 pb-3 flex-none">
             <div className="p-2 bg-slate-800 rounded-lg shadow-inner">
                 <Activity className="text-cyan-400" size={18} />
             </div>
             <div>
                 <h3 className="text-slate-200 text-sm font-bold uppercase tracking-widest">Maturity Score</h3>
-                <div className="text-slate-500 text-[10px]">Current Status</div>
+                <div className="text-slate-500 text-[10px]">Real-time Assessment</div>
             </div>
           </div>
           
-          {/* Main Gauge */}
-          <div className="flex flex-col items-center justify-center mb-6">
-             <div className="relative w-36 h-36 flex items-center justify-center">
+          {/* Main Gauge - EXPANDED to fill space */}
+          <div className="flex-1 flex flex-col items-center justify-center min-h-[160px]">
+             <div className="relative w-56 h-56 flex items-center justify-center">
+                {/* Outer Glow */}
+                <div className="absolute inset-0 bg-cyan-500/5 rounded-full blur-2xl animate-pulse"></div>
+
                 <svg className="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
-                  <circle cx="100" cy="100" r="85" stroke="#1e293b" strokeWidth="16" fill="none" />
+                  {/* Decorative Ticks */}
+                  {[...Array(40)].map((_, i) => (
+                      <line 
+                        key={i}
+                        x1="100" y1="12" x2="100" y2="20" 
+                        transform={`rotate(${i * 9} 100 100)`} 
+                        className="stroke-slate-700" 
+                        strokeWidth="2"
+                      />
+                  ))}
+                  
+                  {/* Background Ring */}
+                  <circle cx="100" cy="100" r="74" stroke="#1e293b" strokeWidth="10" fill="none" className="drop-shadow-inner" />
+                  
+                  {/* Progress Ring */}
                   <motion.circle 
-                    cx="100" cy="100" r="85" 
-                    stroke="url(#gradient)" 
-                    strokeWidth="16"
+                    cx="100" cy="100" r="74" 
+                    stroke="url(#gaugeGradient)" 
+                    strokeWidth="10"
                     strokeLinecap="round" 
                     fill="none" 
-                    strokeDasharray={534}
-                    initial={{ strokeDashoffset: 534 }}
-                    animate={{ strokeDashoffset: 534 - (534 * stage.maturity) / 100 }}
+                    strokeDasharray={465}
+                    initial={{ strokeDashoffset: 465 }}
+                    animate={{ strokeDashoffset: 465 - (465 * stage.maturity) / 100 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
+                    className="filter drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
                   />
                   <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#22d3ee" />
-                      <stop offset="100%" stopColor="#818cf8" />
+                      <stop offset="100%" stopColor="#3b82f6" />
                     </linearGradient>
                   </defs>
                 </svg>
+                
+                {/* Center Content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-                  <span className="text-4xl font-black text-white tracking-tighter">{stage.maturity}%</span>
-                  <div className="mt-1 px-3 py-0.5 bg-slate-800 rounded-full border border-slate-700 text-[10px] text-cyan-400 font-bold shadow-lg">
-                    GRADE {letterGrade}
+                  <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-slate-400 tracking-tighter drop-shadow-sm">
+                    {stage.maturity}<span className="text-2xl text-slate-500 ml-1">%</span>
+                  </span>
+                  <div className="mt-1 px-3 py-1 bg-slate-800/80 rounded-full border border-slate-700 backdrop-blur-sm">
+                    <span className="text-[10px] text-cyan-400 font-bold tracking-[0.2em] uppercase">
+                        INDEX
+                    </span>
                   </div>
                 </div>
              </div>
           </div>
 
-          {/* ANIMATION BOX (Improved Simulation Window) */}
-          <div className="flex-1 w-full bg-slate-950 rounded-2xl border-2 border-slate-800 relative overflow-hidden flex flex-col items-center justify-center shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group">
+          {/* ANIMATION BOX (Compact & Tight) */}
+          <div className="w-full h-40 bg-slate-950 rounded-2xl border-2 border-slate-800 relative overflow-hidden flex flex-col items-center justify-center shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group flex-none mt-2">
               {/* Scanlines Effect */}
               <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-20 pointer-events-none bg-[length:100%_4px,3px_100%]"></div>
               
@@ -94,7 +117,7 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode }) => {
               <div className="absolute top-2 left-3 z-30">
                   <span className="text-[9px] font-bold text-cyan-500 uppercase tracking-widest flex items-center gap-1">
                       <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></span>
-                      MODE: {stage.title.toUpperCase()}
+                      SIM: {stage.title.toUpperCase()}
                   </span>
               </div>
               <MaturityActionAnimation stageId={stage.id} />
@@ -185,7 +208,7 @@ const MaturityActionAnimation: React.FC<{ stageId: StageId }> = ({ stageId }) =>
                  <div className="absolute inset-0 bg-[linear-gradient(#1e40af33_1px,transparent_1px),linear-gradient(90deg,#1e40af33_1px,transparent_1px)] bg-[size:16px_16px] [transform:perspective(500px)_rotateX(60deg)] origin-bottom opacity-50"></div>
                  
                  {/* Builder Bot */}
-                 <div className="relative z-10 flex flex-col items-center">
+                 <div className="relative z-10 flex flex-col items-center mt-4">
                      <motion.div
                         animate={{ y: [0, -5, 0] }}
                         transition={{ duration: 2, repeat: Infinity }}
@@ -201,54 +224,59 @@ const MaturityActionAnimation: React.FC<{ stageId: StageId }> = ({ stageId }) =>
                         transition={{ duration: 4, repeat: Infinity }}
                      />
                  </div>
-                 <div className="absolute bottom-4 text-[10px] text-blue-400 font-bold tracking-widest font-mono">CONSTRUCTING ARCHITECTURE</div>
+                 <div className="absolute bottom-2 text-[10px] text-blue-400 font-bold tracking-widest font-mono">CONSTRUCTING ARCHITECTURE</div>
             </div>
         );
     }
 
-    // 2. CRAWL: Crawling Bot Scanning
+    // 2. CRAWL: High-Tech Rover Scanning
     if (stageId === 'crawl') {
         return (
             <div className="relative w-full h-full flex items-center justify-center overflow-hidden bg-slate-900">
-                {/* Digital Terrain */}
+                {/* 3D Grid Floor */}
                 <motion.div 
-                   className="absolute bottom-0 w-[200%] h-12 bg-[linear-gradient(to_right,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:20px_100%]"
-                   animate={{ x: [-20, -100] }}
+                   className="absolute -bottom-10 -left-1/4 w-[150%] h-[100%] bg-[linear-gradient(rgba(6,182,212,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:30px_30px]"
+                   style={{ transform: "perspective(300px) rotateX(45deg)" }}
+                   animate={{ backgroundPosition: ["0px 0px", "0px 60px"] }}
                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 />
                 
-                {/* Crawling Bot - Rotated and low */}
+                {/* Rover Bot */}
                 <motion.div 
-                    className="absolute bottom-[2rem] left-8"
-                    animate={{ x: [0, 10, 0] }} 
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    className="relative z-10"
+                    animate={{ y: [0, -2, 0] }}
+                    transition={{ duration: 0.5, repeat: Infinity, ease: "easeInOut" }}
                 >
-                     <motion.div
-                        className="relative origin-bottom"
-                        style={{ rotate: 90 }} // On stomach
-                        animate={{ rotate: [90, 85, 90] }} // Wiggle
-                        transition={{ duration: 0.8, repeat: Infinity }}
-                     >
-                        <Bot size={40} className="text-cyan-400" />
-                        {/* Laser Scan Beam */}
-                        <motion.div 
-                           className="absolute top-[-50px] left-4 w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-b-[50px] border-b-cyan-500/30 blur-[2px]"
-                           animate={{ opacity: [0.3, 0.8, 0.3], scaleY: [0.8, 1.2, 0.8] }}
-                           transition={{ duration: 0.5, repeat: Infinity }}
-                           style={{ transformOrigin: 'bottom center', rotate: -90 }}
-                        />
-                     </motion.div>
+                     {/* Body */}
+                     <div className="w-16 h-10 bg-slate-800 rounded-lg border border-cyan-500 flex items-center justify-center relative shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+                        <Scan size={20} className="text-cyan-400" />
+                        
+                        {/* Wheels/Tracks */}
+                        <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-slate-700 rounded-full border border-slate-600 animate-spin"></div>
+                        <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-slate-700 rounded-full border border-slate-600 animate-spin"></div>
+                     </div>
+                     
+                     {/* Conical Scanner Beam */}
+                     <motion.div 
+                       className="absolute top-1/2 left-full w-24 h-32 bg-gradient-to-r from-cyan-400/30 to-transparent clip-path-polygon"
+                       style={{ clipPath: 'polygon(0 45%, 100% 0, 100% 100%, 0 55%)', transformOrigin: 'left center' }}
+                       animate={{ rotate: [-5, 5, -5], opacity: [0.4, 0.7, 0.4] }}
+                       transition={{ duration: 2, repeat: Infinity }}
+                     />
                 </motion.div>
 
-                {/* Found Items popups */}
-                <motion.div 
-                   className="absolute bottom-4 right-10 w-2 h-2 bg-green-400 rounded-full shadow-[0_0_10px_green]"
+                {/* Discovered Object Popups */}
+                <motion.div
+                   className="absolute top-1/3 right-10"
                    initial={{ scale: 0, opacity: 0 }}
-                   animate={{ scale: [0, 1.5, 0], opacity: [0, 1, 0], x: -50 }}
-                   transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
-                />
+                   animate={{ scale: [0, 1, 0], opacity: [0, 1, 0], x: -50 }}
+                   transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                >
+                   <Hexagon size={24} className="text-green-400 fill-green-400/20" />
+                   <div className="absolute -top-4 left-0 text-[8px] text-green-400 font-mono">ASSET</div>
+                </motion.div>
 
-                 <div className="absolute bottom-4 text-[10px] text-cyan-400 font-bold tracking-widest font-mono">SCANNING TERRAIN...</div>
+                 <div className="absolute bottom-2 text-[10px] text-cyan-400 font-bold tracking-widest font-mono bg-slate-900/50 px-2 rounded">ROVER SCAN IN PROGRESS</div>
             </div>
         );
     }
@@ -281,7 +309,7 @@ const MaturityActionAnimation: React.FC<{ stageId: StageId }> = ({ stageId }) =>
                     </motion.div>
                  </div>
                  
-                 <div className="absolute bottom-4 text-[10px] text-indigo-400 font-bold tracking-widest font-mono">STEADY PROGRESS</div>
+                 <div className="absolute bottom-2 text-[10px] text-indigo-400 font-bold tracking-widest font-mono">STEADY PROGRESS</div>
              </div>
         );
     }
@@ -324,7 +352,7 @@ const MaturityActionAnimation: React.FC<{ stageId: StageId }> = ({ stageId }) =>
                      <Zap size={16} className="absolute bottom-0 -right-2 text-yellow-200 animate-bounce" />
                 </motion.div>
 
-                 <div className="absolute bottom-4 text-[10px] text-yellow-400 font-bold tracking-widest font-mono italic">
+                 <div className="absolute bottom-2 text-[10px] text-yellow-400 font-bold tracking-widest font-mono italic">
                     MAX VELOCITY
                  </div>
              </div>
@@ -374,7 +402,7 @@ const MaturityActionAnimation: React.FC<{ stageId: StageId }> = ({ stageId }) =>
                     <Radio size={16} />
                 </motion.div>
 
-                 <div className="absolute bottom-4 text-[10px] text-green-400 font-bold tracking-widest font-mono">ORBITAL STRATEGY</div>
+                 <div className="absolute bottom-2 text-[10px] text-green-400 font-bold tracking-widest font-mono">ORBITAL STRATEGY</div>
              </div>
         );
     }

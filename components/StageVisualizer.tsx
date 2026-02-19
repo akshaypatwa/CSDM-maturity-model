@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { StageId } from '../types';
-import { Database, Footprints, Route, Zap, Rocket, Search, Link, BarChart3, ShieldCheck, Activity, Layers, Server, Globe, Terminal, Tag } from 'lucide-react';
+import { Database, Footprints, Route, Zap, Rocket, Search, Link, BarChart3, ShieldCheck, Activity, Layers, Server, Globe, Terminal, Tag, Cpu, Radio } from 'lucide-react';
 
 interface StageVisualizerProps {
   stageId: StageId;
@@ -9,18 +9,18 @@ interface StageVisualizerProps {
 
 const StageVisualizer: React.FC<StageVisualizerProps> = ({ stageId }) => {
   return (
-    <div className="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-3xl bg-slate-900 border border-slate-700/80 shadow-2xl group">
+    <div className="w-full h-full relative flex flex-col overflow-hidden rounded-3xl bg-slate-900 border border-slate-700/80 shadow-2xl group">
       {/* Background Ambience */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
       
-      {/* ServiceNow Process Tag - Top Center */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30">
-        <ProcessTag stageId={stageId} />
+      {/* NEW: Prominent ServiceNow Process Header */}
+      <div className="relative z-30 w-full">
+        <ProcessHeader stageId={stageId} />
       </div>
 
-      {/* Dynamic Visual Area - Takes up most space */}
-      <div className="relative z-10 w-full flex-1 flex flex-col items-center justify-center p-2 min-h-0">
+      {/* Dynamic Visual Area - Pushed down to accommodate header */}
+      <div className="relative z-10 w-full flex-1 flex flex-col items-center justify-center p-4 min-h-0">
         {stageId === 'foundation' && <FoundationVisual />}
         {stageId === 'crawl' && <CrawlVisual />}
         {stageId === 'walk' && <WalkVisual />}
@@ -31,23 +31,60 @@ const StageVisualizer: React.FC<StageVisualizerProps> = ({ stageId }) => {
   );
 };
 
-// --- Process Tag Component ---
-const ProcessTag: React.FC<{ stageId: StageId }> = ({ stageId }) => {
+// --- Enhanced Process Header Component ---
+const ProcessHeader: React.FC<{ stageId: StageId }> = ({ stageId }) => {
     let label = "";
-    let colorClass = "";
+    let subLabel = "";
+    let gradientClass = "";
+    let icon = null;
     
     switch(stageId) {
-        case 'foundation': label = "CORE DATA SETUP"; colorClass = "border-blue-500 text-blue-400 bg-blue-900/50"; break;
-        case 'crawl': label = "ENABLE: DISCOVERY"; colorClass = "border-cyan-500 text-cyan-400 bg-cyan-900/50"; break;
-        case 'walk': label = "ENABLE: SERVICE MAPPING"; colorClass = "border-indigo-500 text-indigo-400 bg-indigo-900/50"; break;
-        case 'run': label = "ENABLE: EVENT MGMT"; colorClass = "border-yellow-500 text-yellow-400 bg-yellow-900/50"; break;
-        case 'fly': label = "ENABLE: APM & SPM"; colorClass = "border-purple-500 text-purple-400 bg-purple-900/50"; break;
+        case 'foundation': 
+            label = "CORE DATA SETUP"; 
+            subLabel = "ESTABLISH TRUSTED SOURCES";
+            gradientClass = "from-blue-600/20 via-blue-900/60 to-blue-600/20 border-blue-500/50 text-blue-100"; 
+            icon = <Database size={24} className="text-blue-400" />;
+            break;
+        case 'crawl': 
+            label = "ENABLE: DISCOVERY"; 
+            subLabel = "POPULATE CMDB INVENTORY";
+            gradientClass = "from-cyan-600/20 via-cyan-900/60 to-cyan-600/20 border-cyan-500/50 text-cyan-100"; 
+            icon = <Search size={24} className="text-cyan-400" />;
+            break;
+        case 'walk': 
+            label = "ENABLE: SERVICE MAPPING"; 
+            subLabel = "DEFINE DEPENDENCIES";
+            gradientClass = "from-indigo-600/20 via-indigo-900/60 to-indigo-600/20 border-indigo-500/50 text-indigo-100"; 
+            icon = <Route size={24} className="text-indigo-400" />;
+            break;
+        case 'run': 
+            label = "ENABLE: EVENT MGMT"; 
+            subLabel = "HEALTH & REMEDIATION";
+            gradientClass = "from-yellow-600/20 via-yellow-900/60 to-yellow-600/20 border-yellow-500/50 text-yellow-100"; 
+            icon = <Zap size={24} className="text-yellow-400" />;
+            break;
+        case 'fly': 
+            label = "ENABLE: APM & SPM"; 
+            subLabel = "STRATEGIC PORTFOLIO";
+            gradientClass = "from-purple-600/20 via-purple-900/60 to-purple-600/20 border-purple-500/50 text-purple-100"; 
+            icon = <Rocket size={24} className="text-purple-400" />;
+            break;
     }
 
     return (
-        <div className={`flex items-center gap-2 px-3 py-1 rounded-full border ${colorClass} backdrop-blur-md shadow-lg`}>
-            <Tag size={12} className="fill-current opacity-50" />
-            <span className="text-[10px] md:text-xs font-bold tracking-wider">{label}</span>
+        <div className={`w-full py-4 border-b ${gradientClass} bg-gradient-to-r backdrop-blur-md flex flex-col items-center justify-center shadow-lg relative overflow-hidden`}>
+            {/* Animated Glow Line */}
+            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50"></div>
+            
+            <div className="flex items-center gap-3 relative z-10">
+                <div className="p-2 rounded-lg bg-slate-950/50 border border-white/10 shadow-inner">
+                    {icon}
+                </div>
+                <div className="flex flex-col items-start">
+                    <span className="text-lg md:text-2xl font-black tracking-widest leading-none drop-shadow-md">{label}</span>
+                    <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] opacity-70 uppercase mt-1">{subLabel}</span>
+                </div>
+            </div>
         </div>
     );
 }
@@ -88,15 +125,14 @@ const FoundationVisual = () => (
        </div>
     </div>
     
-    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-8 relative z-20">
+    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-6 relative z-20">
         <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
-            <div className="hidden lg:block p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20 shrink-0">
-                <ShieldCheck className="text-blue-400" size={32} />
+            <div className="hidden lg:block p-3 bg-blue-500/10 rounded-2xl border border-blue-500/20 shrink-0">
+                <ShieldCheck className="text-blue-400" size={24} />
             </div>
             <div>
-                <h3 className="text-lg lg:text-2xl font-bold text-white mb-1 lg:mb-2">Creating the Trusted Source</h3>
                 <p className="text-slate-300 text-xs lg:text-lg leading-relaxed">
-                    We are replacing chaos with structure. Foundation is about <strong>standardizing Core Data</strong> so every application speaks the same language. It is the bedrock of reporting integrity.
+                    Foundation is about <strong>standardizing Core Data</strong> so every application speaks the same language. It is the bedrock of reporting integrity.
                 </p>
             </div>
         </div>
@@ -115,7 +151,7 @@ const CrawlVisual = () => (
          initial={{ opacity: 0, x: 20 }}
          animate={{ opacity: 1, x: 0 }}
          transition={{ delay: 1 }}
-         className="absolute top-10 lg:top-4 right-2 lg:right-10 bg-slate-900/90 border border-cyan-500/30 p-3 lg:p-4 rounded-xl backdrop-blur-md shadow-2xl z-30 max-w-[150px] lg:max-w-[200px]"
+         className="absolute top-2 lg:top-4 right-2 lg:right-10 bg-slate-900/90 border border-cyan-500/30 p-3 lg:p-4 rounded-xl backdrop-blur-md shadow-2xl z-30 max-w-[150px] lg:max-w-[200px]"
        >
          <div className="flex items-center gap-2 mb-2 lg:mb-3 border-b border-slate-800 pb-2">
             <Terminal size={12} className="text-cyan-400" />
@@ -183,15 +219,14 @@ const CrawlVisual = () => (
        </div>
     </div>
 
-    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-8 relative z-20">
+    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-6 relative z-20">
         <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
-            <div className="hidden lg:block p-4 bg-cyan-500/10 rounded-2xl border border-cyan-500/20 shrink-0">
-                <Footprints className="text-cyan-400" size={32} />
+            <div className="hidden lg:block p-3 bg-cyan-500/10 rounded-2xl border border-cyan-500/20 shrink-0">
+                <Footprints className="text-cyan-400" size={24} />
             </div>
             <div>
-                <h3 className="text-lg lg:text-2xl font-bold text-white mb-1 lg:mb-2">Discovering What You Have</h3>
                 <p className="text-slate-300 text-xs lg:text-lg leading-relaxed">
-                    Turning the lights on. We are building the <strong>Inventory</strong>. This stage identifies every Application, Server, and Device, moving you from spreadsheets to a live, verified system of record.
+                    Turning the lights on. This stage identifies every Application, Server, and Device, moving you from spreadsheets to a live, verified system of record.
                 </p>
             </div>
         </div>
@@ -288,13 +323,12 @@ const WalkVisual = () => (
        </div>
     </div>
 
-    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-8 relative z-20">
+    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-6 relative z-20">
         <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
-            <div className="hidden lg:block p-4 bg-purple-500/10 rounded-2xl border border-purple-500/20 shrink-0">
-                <Link className="text-purple-400" size={32} />
+            <div className="hidden lg:block p-3 bg-purple-500/10 rounded-2xl border border-purple-500/20 shrink-0">
+                <Link className="text-purple-400" size={24} />
             </div>
             <div>
-                <h3 className="text-lg lg:text-2xl font-bold text-white mb-1 lg:mb-2">Defining Dependencies</h3>
                 <p className="text-slate-300 text-xs lg:text-lg leading-relaxed">
                     Inventory without context is blind. We are <strong>connecting the dots</strong>. Now you can see exactly which physical servers support which critical business application.
                 </p>
@@ -348,13 +382,12 @@ const RunVisual = () => (
        </div>
     </div>
 
-    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-8 relative z-20">
+    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-6 relative z-20">
         <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
-            <div className="hidden lg:block p-4 bg-yellow-500/10 rounded-2xl border border-yellow-500/20 shrink-0">
-                <Activity className="text-yellow-400" size={32} />
+            <div className="hidden lg:block p-3 bg-yellow-500/10 rounded-2xl border border-yellow-500/20 shrink-0">
+                <Activity className="text-yellow-400" size={24} />
             </div>
             <div>
-                <h3 className="text-lg lg:text-2xl font-bold text-white mb-1 lg:mb-2">Operational Velocity</h3>
                 <p className="text-slate-300 text-xs lg:text-lg leading-relaxed">
                     We aren't just documenting anymore; we are <strong>Managing Health</strong>. This stage enables real-time impact analysis, SLA tracking, and accelerated Incident Management.
                 </p>
@@ -424,15 +457,14 @@ const FlyVisual = () => (
       </div>
     </div>
     
-    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-8 relative z-20">
+    <div className="w-full bg-slate-950/80 backdrop-blur-md border-t border-slate-700 p-4 lg:p-6 relative z-20">
         <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
-            <div className="hidden lg:block p-4 bg-purple-500/10 rounded-2xl border border-purple-500/20 shrink-0">
-                <Rocket className="text-purple-400" size={32} />
+            <div className="hidden lg:block p-3 bg-purple-500/10 rounded-2xl border border-purple-500/20 shrink-0">
+                <Rocket className="text-purple-400" size={24} />
             </div>
             <div>
-                <h3 className="text-lg lg:text-2xl font-bold text-white mb-1 lg:mb-2">Strategic Elevation</h3>
                 <p className="text-slate-300 text-xs lg:text-lg leading-relaxed">
-                    The ultimate goal. Moving beyond IT operations to <strong>Business Strategy</strong>. We optimize costs, rationalize the application portfolio, and align IT investment with business capabilities.
+                    Moving beyond IT operations to <strong>Business Strategy</strong>. We optimize costs, rationalize the application portfolio, and align IT investment with business capabilities.
                 </p>
             </div>
         </div>
