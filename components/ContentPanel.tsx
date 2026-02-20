@@ -256,7 +256,7 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode, setViewMod
                                 </div>
                                 <div>
                                     <h4 className={`text-sm font-black uppercase tracking-widest ${theme.textColor}`}>
-                                        {viewMode === 'application' ? 'Applications' : 'Services'}
+                                        {viewMode === 'application' ? 'Apps' : 'Services'}
                                     </h4>
                                     <div className="text-slate-500 text-[10px] font-bold tracking-wider">ACTIVE OBJECTS</div>
                                 </div>
