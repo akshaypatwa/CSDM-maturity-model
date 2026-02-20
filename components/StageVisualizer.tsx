@@ -38,54 +38,75 @@ const StageVisualizer: React.FC<StageVisualizerProps> = ({ stageId }) => {
 const ProcessHeader: React.FC<{ stageId: StageId }> = ({ stageId }) => {
   let label = "";
   let subLabel = "";
-  let gradientClass = "";
+  let containerClass = "";
+  let iconClass = "";
+  let iconBgClass = "";
   let icon = null;
 
   switch (stageId) {
     case 'foundation':
       label = "CORE DATA SETUP";
       subLabel = "ESTABLISH TRUSTED SOURCES";
-      gradientClass = "from-emerald-600 via-emerald-700 to-emerald-600 text-white shadow-emerald-700/20";
-      icon = <Database size={24} className="text-white" />;
+      containerClass = "bg-gradient-to-r from-emerald-50 via-white to-emerald-50 border-emerald-100 shadow-sm";
+      iconClass = "text-emerald-600";
+      iconBgClass = "bg-white border-emerald-200 shadow-sm";
+      icon = <Database size={24} className={iconClass} />;
       break;
     case 'crawl':
+      // The user specifically requested to keep Crawl bright.
       label = "ENABLE: DISCOVERY";
       subLabel = "POPULATE CMDB INVENTORY";
-      gradientClass = "from-cyan-500 via-cyan-600 to-cyan-500 text-white shadow-cyan-500/20";
-      icon = <Search size={24} className="text-white" />;
+      containerClass = "bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-500 text-white border-cyan-400 shadow-[0_4px_15px_rgba(6,182,212,0.3)]";
+      iconClass = "text-white";
+      iconBgClass = "bg-white/20 border-white/30 shadow-inner backdrop-blur-sm";
+      icon = <Search size={24} className={iconClass} />;
       break;
     case 'walk':
       label = "ENABLE: SERVICE MAPPING";
       subLabel = "DEFINE DEPENDENCIES";
-      gradientClass = "from-indigo-600 via-indigo-700 to-indigo-600 text-white shadow-indigo-700/20";
-      icon = <Route size={24} className="text-white" />;
+      containerClass = "bg-gradient-to-r from-indigo-50 via-white to-indigo-50 border-indigo-100 shadow-sm";
+      iconClass = "text-indigo-600";
+      iconBgClass = "bg-white border-indigo-200 shadow-sm";
+      icon = <Route size={24} className={iconClass} />;
       break;
     case 'run':
       label = "ENABLE: EVENT MGMT";
       subLabel = "HEALTH & REMEDIATION";
-      gradientClass = "from-orange-600 via-orange-700 to-orange-600 text-white shadow-orange-700/20";
-      icon = <Zap size={24} className="text-white" />;
+      containerClass = "bg-gradient-to-r from-orange-50 via-white to-orange-50 border-orange-100 shadow-sm";
+      iconClass = "text-orange-600";
+      iconBgClass = "bg-white border-orange-200 shadow-sm";
+      icon = <Zap size={24} className={iconClass} />;
       break;
     case 'fly':
       label = "ENABLE: APM & SPM";
       subLabel = "STRATEGIC PORTFOLIO";
-      gradientClass = "from-purple-600 via-purple-700 to-purple-600 text-white shadow-purple-700/20";
-      icon = <Rocket size={24} className="text-white" />;
+      containerClass = "bg-gradient-to-r from-purple-50 via-white to-purple-50 border-purple-100 shadow-sm";
+      iconClass = "text-purple-600";
+      iconBgClass = "bg-white border-purple-200 shadow-sm";
+      icon = <Rocket size={24} className={iconClass} />;
       break;
   }
 
-  return (
-    <div className={`w-full py-4 border-b border-white/10 bg-gradient-to-r ${gradientClass} flex flex-col items-center justify-center shadow-md relative overflow-hidden`}>
-      {/* Satin Shine Effect */}
-      <div className="absolute top-0 left-0 w-full h-1/2 bg-white/10"></div>
+  // Determine text color for rendering the text blocks
+  const textColorClass = stageId === 'crawl' ? 'text-white' : iconClass.replace('text-', 'text-').replace('-600', '-900');
+  const subTextColorClass = stageId === 'crawl' ? 'text-cyan-100' : iconClass.replace('-600', '-500');
 
-      <div className="flex items-center gap-3 relative z-10">
-        <div className="p-2 rounded-lg bg-white/20 border border-white/30 shadow-inner backdrop-blur-sm">
+  return (
+    <div className={`w-full py-4 border-b ${containerClass} flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500`}>
+      {/* Satin Shine Effect (Only visible on colored backgrounds) */}
+      {stageId === 'crawl' && <div className="absolute top-0 left-0 w-full h-1/2 bg-white/10"></div>}
+
+      <div className="flex items-center gap-3 relative z-10 w-full px-6 justify-center">
+        <div className={`p-2 rounded-lg border flex-shrink-0 ${iconBgClass}`}>
           {icon}
         </div>
-        <div className="flex flex-col items-start drop-shadow-sm">
-          <span className="text-lg md:text-2xl font-black tracking-widest leading-none">{label}</span>
-          <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] opacity-90 uppercase mt-1">{subLabel}</span>
+        <div className={`flex flex-col items-start ${textColorClass} ${stageId === 'crawl' ? 'drop-shadow-sm' : ''}`}>
+          <span className="text-lg md:text-2xl font-black tracking-widest leading-none">
+            {label}
+          </span>
+          <span className={`text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mt-1 ${subTextColorClass}`}>
+            {subLabel}
+          </span>
         </div>
       </div>
     </div>
