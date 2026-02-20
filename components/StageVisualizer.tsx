@@ -45,7 +45,7 @@ const ProcessHeader: React.FC<{ stageId: StageId }> = ({ stageId }) => {
     case 'foundation':
       label = "CORE DATA SETUP";
       subLabel = "ESTABLISH TRUSTED SOURCES";
-      gradientClass = "from-blue-500 via-blue-600 to-blue-500 text-white shadow-blue-500/20";
+      gradientClass = "from-emerald-500 via-emerald-600 to-emerald-500 text-white shadow-emerald-500/20";
       icon = <Database size={24} className="text-white" />;
       break;
     case 'crawl':
@@ -101,15 +101,15 @@ const FoundationVisual = () => (
       {/* Scale up the grid area */}
       <div className="relative w-full max-w-lg h-56 lg:h-64 flex items-center justify-center [perspective:800px]">
         {/* Base Platform - Solid Light Surface */}
-        <div className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 w-64 lg:w-96 h-32 bg-blue-50 rounded-[20px] transform rotate-x-60 border-4 border-blue-200" />
+        <div className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 w-64 lg:w-96 h-32 bg-emerald-50 rounded-[20px] transform rotate-x-60 border-4 border-emerald-200" />
 
         {/* Animated Solid Blocks */}
         {[...Array(9)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute left-1/2 top-1/2 -ml-8 -mt-12 lg:-ml-10 lg:-mt-16 w-16 h-12 lg:w-20 lg:h-16 rounded-lg shadow-[0_15px_30px_rgba(59,130,246,0.3)] flex items-center justify-center z-10"
+            className="absolute left-1/2 top-1/2 -ml-8 -mt-12 lg:-ml-10 lg:-mt-16 w-16 h-12 lg:w-20 lg:h-16 rounded-lg shadow-[0_15px_30px_rgba(16,185,129,0.3)] flex items-center justify-center z-10"
             style={{
-              background: 'linear-gradient(135deg, #60a5fa 0%, #2563eb 100%)', // Solid Blue Gradient
+              background: 'linear-gradient(135deg, #34d399 0%, #059669 100%)', // Solid Emerald Gradient
               borderTop: '1px solid rgba(255,255,255,0.4)',
               borderLeft: '1px solid rgba(255,255,255,0.2)'
             }}
@@ -133,9 +133,9 @@ const FoundationVisual = () => (
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 1.5 + i * 0.1 }}
-              className="absolute -bottom-2 -right-2 w-5 h-5 lg:w-6 lg:h-6 bg-white rounded-full flex items-center justify-center border-2 border-blue-500 shadow-md"
+              className="absolute -bottom-2 -right-2 w-5 h-5 lg:w-6 lg:h-6 bg-white rounded-full flex items-center justify-center border-2 border-emerald-500 shadow-md"
             >
-              <Check size={12} className="text-blue-600 font-bold" strokeWidth={4} />
+              <Check size={12} className="text-emerald-600 font-bold" strokeWidth={4} />
             </motion.div>
           </motion.div>
         ))}
@@ -144,7 +144,7 @@ const FoundationVisual = () => (
 
     <div className="w-full bg-slate-50 border-t border-slate-200 p-4 lg:p-6 relative z-20">
       <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
-        <div className="hidden lg:block p-3 bg-blue-500 rounded-2xl shadow-md shrink-0">
+        <div className="hidden lg:block p-3 bg-emerald-500 rounded-2xl shadow-md shrink-0">
           <ShieldCheck className="text-white" size={24} />
         </div>
         <div>

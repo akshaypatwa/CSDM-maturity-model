@@ -17,16 +17,16 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode, setViewMod
     const getStageTheme = (id: string) => {
         switch (id) {
             case 'foundation': return {
-                headerGradient: "from-blue-50 to-blue-100/50",
-                cardBorder: "border-slate-200",
-                headerBorder: "border-blue-100",
-                iconColor: "text-blue-600",
-                iconBg: "bg-white border-blue-200",
-                textColor: "text-blue-900",
-                glow: "shadow-[0_10px_40px_-10px_rgba(59,130,246,0.15)]",
-                stripe: "from-blue-500 to-blue-600",
-                gaugeGradient: ["#3b82f6", "#60a5fa"],
-                accentBg: "bg-blue-50"
+                headerGradient: "from-emerald-50 to-emerald-100/50",
+                cardBorder: "border-emerald-100",
+                headerBorder: "border-emerald-100",
+                iconColor: "text-emerald-600",
+                iconBg: "bg-white border-emerald-200",
+                textColor: "text-emerald-900",
+                glow: "shadow-[0_10px_40px_-10px_rgba(16,185,129,0.2)]",
+                stripe: "from-emerald-500 to-teal-500",
+                gaugeGradient: ["#10b981", "#34d399"],
+                accentBg: "bg-emerald-50"
             };
             case 'crawl': return {
                 headerGradient: "from-cyan-50 to-cyan-100/50",
@@ -101,7 +101,7 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode, setViewMod
           ======================= */}
             <div className="col-span-1 lg:col-span-3 flex flex-col h-full overflow-hidden min-h-0">
                 <motion.div
-                    className={`flex-1 bg-white border ${theme.cardBorder} rounded-3xl p-0 flex flex-col relative overflow-hidden group transition-all duration-500 ${theme.glow}`}
+                    className={`flex-1 bg-white text-slate-900 border ${theme.cardBorder} rounded-3xl p-0 flex flex-col relative overflow-hidden shadow-xl group hover:shadow-2xl transition-all duration-500 ${theme.glow}`}
                 >
                     {/* Panel Background - Textured & Gradient */}
                     {/* Panel Background - Textured & Gradient (Enhanced) */}
@@ -322,12 +322,12 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode, setViewMod
 // --- Sub-component for Character Action Animations (Light Mode Optimized) ---
 const MaturityActionAnimation: React.FC<{ stageId: StageId }> = ({ stageId }) => {
 
-    // 1. FOUNDATION: Blueprint / Building - Light Blue Theme
+    // 1. FOUNDATION: Blueprint / Building - Emerald Theme
     if (stageId === 'foundation') {
         return (
-            <div className="relative w-full h-full flex items-center justify-center bg-blue-50/50">
+            <div className="relative w-full h-full flex items-center justify-center bg-emerald-50/50">
                 {/* Blueprint Grid */}
-                <div className="absolute inset-0 bg-[linear-gradient(#3b82f61a_1px,transparent_1px),linear-gradient(90deg,#3b82f61a_1px,transparent_1px)] bg-[size:16px_16px] [transform:perspective(500px)_rotateX(60deg)] origin-bottom"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(#10b9811a_1px,transparent_1px),linear-gradient(90deg,#10b9811a_1px,transparent_1px)] bg-[size:16px_16px] [transform:perspective(500px)_rotateX(60deg)] origin-bottom"></div>
 
                 {/* Builder Bot */}
                 <div className="relative z-10 flex flex-col items-center mt-4">
@@ -335,18 +335,18 @@ const MaturityActionAnimation: React.FC<{ stageId: StageId }> = ({ stageId }) =>
                         animate={{ y: [0, -5, 0] }}
                         transition={{ duration: 2, repeat: Infinity }}
                     >
-                        <Bot size={48} className="text-blue-600 drop-shadow-sm" />
+                        <Bot size={48} className="text-emerald-600 drop-shadow-sm" />
                     </motion.div>
 
                     {/* Holographic Projection */}
                     <motion.div
-                        className="absolute bottom-10 w-20 h-20 border-2 border-blue-400/50 rounded-lg bg-blue-400/10"
+                        className="absolute bottom-10 w-20 h-20 border-2 border-emerald-400/50 rounded-lg bg-emerald-400/10"
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1, rotateY: 360 }}
                         transition={{ duration: 4, repeat: Infinity }}
                     />
                 </div>
-                <div className="absolute bottom-3 px-3 py-1 rounded-full bg-blue-100/80 backdrop-blur-sm border border-blue-200 shadow-sm text-xs text-blue-700 font-bold tracking-widest font-mono flex items-center gap-2">
+                <div className="absolute bottom-3 px-3 py-1 rounded-full bg-emerald-100/80 backdrop-blur-sm border border-emerald-200 shadow-sm text-xs text-emerald-700 font-bold tracking-widest font-mono flex items-center gap-2">
                     <Activity size={12} className="animate-pulse" />
                     CONSTRUCTING CORE
                 </div>
