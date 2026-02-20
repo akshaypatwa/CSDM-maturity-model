@@ -32,7 +32,7 @@ const App: React.FC = () => {
       <Background />
 
       {/* Top Navigation - Auto Height */}
-      <header className="flex-none z-20 pt-2">
+      <header className="flex-none z-20 pt-1">
         <NavBar
           currentStageIndex={currentStageIndex}
           onStageSelect={handleStageSelect}
@@ -40,7 +40,7 @@ const App: React.FC = () => {
       </header>
 
       {/* Main Content - Flex Grow to fill space */}
-      <main className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 w-full max-w-[1800px] mx-auto z-10 min-h-0 py-2">
+      <main className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 w-full max-w-[1800px] mx-auto z-10 min-h-0 py-1">
         <ContentPanel
           stage={STAGES[currentStageIndex]}
           viewMode={viewMode}
@@ -49,7 +49,7 @@ const App: React.FC = () => {
       </main>
 
       {/* Footer Controls - Fixed Height */}
-      <footer className="flex-none py-4 z-30 flex justify-center">
+      <footer className="flex-none py-2 z-30 flex justify-center">
         <Controls
           viewMode={viewMode}
           setViewMode={setViewMode}

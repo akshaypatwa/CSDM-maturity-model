@@ -107,7 +107,7 @@ const FoundationVisual = () => (
   <>
     <div className="relative flex-1 w-full flex items-center justify-center">
       {/* Scale up the grid area */}
-      <div className="relative w-full max-w-lg h-56 lg:h-64 flex items-center justify-center [perspective:800px]">
+      <div className="relative w-full max-w-lg h-40 md:h-48 lg:h-56 flex items-center justify-center [perspective:800px]">
         {/* Base Platform - Solid Light Surface */}
         <div className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 w-64 lg:w-96 h-32 bg-emerald-50 rounded-[20px] transform rotate-x-60 border-4 border-emerald-200" />
 
@@ -150,7 +150,7 @@ const FoundationVisual = () => (
       </div>
     </div>
 
-    <div className="w-full bg-slate-50 border-t border-slate-200 p-4 lg:p-6 relative z-20">
+    <div className="w-full bg-slate-50 border-t border-slate-200 p-3 lg:p-4 relative z-20">
       <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
         <div className="hidden lg:block p-3 bg-emerald-500 rounded-2xl shadow-md shrink-0">
           <ShieldCheck className="text-white" size={24} />
@@ -199,7 +199,7 @@ const CrawlVisual = () => (
       </motion.div>
 
       {/* Radar Container */}
-      <div className="relative w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72 flex items-center justify-center">
+      <div className="relative w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 flex items-center justify-center">
         {/* Solid Radar Base - Light */}
         <div className="absolute inset-0 bg-slate-100 rounded-full border-4 border-slate-200 shadow-xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle,_rgba(6,182,212,0.1)_0%,_transparent_70%)] rounded-full" />
@@ -248,7 +248,7 @@ const CrawlVisual = () => (
       </div>
     </div>
 
-    <div className="w-full bg-slate-50 border-t border-slate-200 p-4 lg:p-6 relative z-20">
+    <div className="w-full bg-slate-50 border-t border-slate-200 p-3 lg:p-4 relative z-20">
       <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
         <div className="hidden lg:block p-3 bg-cyan-500 rounded-2xl shadow-md shrink-0">
           <Footprints className="text-white" size={24} />
@@ -270,7 +270,7 @@ const WalkVisual = () => (
   <>
     <div className="relative flex-1 w-full flex items-center justify-center">
       {/* Scaled Up Map */}
-      <div className="relative w-full max-w-lg lg:max-w-2xl h-64 lg:h-80 flex items-center justify-center">
+      <div className="relative w-full max-w-lg lg:max-w-2xl h-48 lg:h-64 flex items-center justify-center">
 
         {/* Top Node (Business App) - Solid Card */}
         <motion.div
@@ -378,7 +378,7 @@ const WalkVisual = () => (
       </div>
     </div>
 
-    <div className="w-full bg-slate-50 border-t border-slate-200 p-4 lg:p-6 relative z-20">
+    <div className="w-full bg-slate-50 border-t border-slate-200 p-3 lg:p-4 relative z-20">
       <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
         <div className="hidden lg:block p-3 bg-indigo-500 rounded-2xl shadow-md shrink-0">
           <Link className="text-white" size={24} />
@@ -400,7 +400,7 @@ const RunVisual = () => (
   <>
     <div className="relative flex-1 w-full flex items-center justify-center">
       {/* Responsive Sizing */}
-      <div className="relative w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72 flex items-center justify-center">
+      <div className="relative w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 flex items-center justify-center">
         {/* Solid Rings */}
         <motion.div
           className="absolute inset-0 rounded-full border-[12px] lg:border-[16px] border-slate-200/50 border-t-amber-400 border-l-amber-500"
@@ -441,7 +441,7 @@ const RunVisual = () => (
       </div>
     </div>
 
-    <div className="w-full bg-slate-50 border-t border-slate-200 p-4 lg:p-6 relative z-20">
+    <div className="w-full bg-slate-50 border-t border-slate-200 p-3 lg:p-4 relative z-20">
       <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
         <div className="hidden lg:block p-3 bg-amber-500 rounded-2xl shadow-md shrink-0">
           <Activity className="text-white" size={24} />
@@ -475,7 +475,7 @@ const FlyVisual = () => (
       ))}
 
       {/* Main Rocket Assembly */}
-      <div className="relative z-10 flex items-center justify-center scale-75 lg:scale-100">
+      <div className="relative z-10 flex items-center justify-center scale-[0.6] md:scale-75 lg:scale-100">
         {/* Engine Plume - Solid Colors */}
         <motion.div
           className="absolute top-24 w-12 h-40 bg-gradient-to-t from-transparent via-cyan-400 to-white opacity-40 rounded-full blur-md"
@@ -529,7 +529,7 @@ const FlyVisual = () => (
       </div>
     </div>
 
-    <div className="w-full bg-slate-50 border-t border-slate-200 p-4 lg:p-6 relative z-20">
+    <div className="w-full bg-slate-50 border-t border-slate-200 p-3 lg:p-4 relative z-20">
       <div className="max-w-4xl mx-auto flex items-start gap-4 lg:gap-6">
         <div className="hidden lg:block p-3 bg-purple-500 rounded-2xl shadow-md shrink-0">
           <Rocket className="text-white" size={24} />

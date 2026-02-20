@@ -17,7 +17,7 @@ const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => 
         animate={{ opacity: 1, y: 0 }}
         className="text-center relative z-10"
       >
-        <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight drop-shadow-lg">
+        <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-lg mb-2">
           CSDM <span className="bg-gradient-to-r from-blue-400 to-cyan-400 text-transparent bg-clip-text">MATURITY</span>
         </h1>
       </motion.div>
@@ -26,17 +26,17 @@ const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => 
       <div className="relative w-full max-w-6xl px-4 md:px-16">
 
         {/* Track Roadmap Container - Perfectly centered under the icons */}
-        <div className="absolute top-0 left-16 md:left-32 right-16 md:right-32 h-32 flex flex-col justify-center z-10 pointer-events-none">
+        <div className="absolute top-0 left-12 md:left-24 right-12 md:right-24 h-24 flex flex-col justify-center z-10 pointer-events-none">
           {/* Empty Roadmap Pipeline */}
-          <div className="w-full h-4 md:h-5 bg-slate-900 rounded-full border border-slate-700/60 shadow-inner flex items-center px-1">
+          <div className="w-full h-3 md:h-4 bg-slate-900 rounded-full border border-slate-700/60 shadow-inner flex items-center px-1">
             <div className="w-full h-[2px] bg-[linear-gradient(to_right,#334155_50%,transparent_50%)] bg-[length:16px_100%] opacity-50" />
           </div>
         </div>
 
         {/* Active Roadmap Pipeline - Glowing */}
-        <div className="absolute top-0 left-16 md:left-32 right-16 md:right-32 h-32 flex flex-col justify-center z-10 pointer-events-none">
+        <div className="absolute top-0 left-12 md:left-24 right-12 md:right-24 h-24 flex flex-col justify-center z-10 pointer-events-none">
           <motion.div
-            className="h-4 md:h-5 rounded-full flex items-center overflow-hidden shadow-[0_0_20px_rgba(6,182,212,0.4)] relative"
+            className="h-3 md:h-4 rounded-full flex items-center overflow-hidden shadow-[0_0_20px_rgba(6,182,212,0.4)] relative"
             style={{ backgroundImage: "linear-gradient(to right, #10b981, #06b6d4, #4f46e5, #d946ef, #a855f7)" }}
             initial={{ width: '0%' }}
             animate={{ width: `${(currentStageIndex / (STAGES.length - 1)) * 100}%` }}
@@ -118,18 +118,18 @@ const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => 
             return (
               <div
                 key={stage.id}
-                className="flex flex-col items-center group cursor-pointer relative w-24 md:w-32"
+                className="flex flex-col items-center group cursor-pointer relative w-20 md:w-28"
                 onClick={() => onStageSelect(index)}
               >
 
                 {/* Icon Circle - Roadmap Node */}
-                <div className="relative h-32 w-32 flex items-center justify-center">
+                <div className="relative h-24 w-24 md:h-24 md:w-24 flex items-center justify-center">
 
                   {/* Outer Pulsing Ring for Active Stage */}
                   {isActive && (
                     <motion.div
                       className={`absolute rounded-full border border-white/40 ${colors.activeBg} opacity-20`}
-                      style={{ width: '130px', height: '130px' }}
+                      style={{ width: '90px', height: '90px' }}
                       animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0, 0.3] }}
                       transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     />
@@ -137,16 +137,16 @@ const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => 
 
                   <motion.div
                     className={`
-                        flex items-center justify-center rounded-full shadow-lg border-4 transition-all duration-300 z-20 relative
+                        flex items-center justify-center rounded-full shadow-lg border-2 md:border-4 transition-all duration-300 z-20 relative
                         ${isActive
-                        ? `w-24 h-24 md:w-28 md:h-28 border-white ${colors.activeBg} text-white ${colors.activeShadow} z-30`
+                        ? `w-16 h-16 md:w-20 md:h-20 border-white ${colors.activeBg} text-white ${colors.activeShadow} z-30`
                         : isCompleted
-                          ? `w-14 h-14 md:w-16 md:h-16 border-white/20 border-2 ${colors.activeBg} text-white/90 shadow-lg backdrop-blur-sm opacity-90 z-20`
-                          : `w-14 h-14 md:w-16 md:h-16 border-2 ${colors.ring} ${colors.bg} ${colors.text} hover:scale-110 hover:border-white/50 hover:text-white shadow-lg transition-transform z-20`}
+                          ? `w-10 h-10 md:w-12 md:h-12 border-white/20 border-2 ${colors.activeBg} text-white/90 shadow-sm backdrop-blur-sm opacity-90 z-20`
+                          : `w-10 h-10 md:w-12 md:h-12 border-2 ${colors.ring} ${colors.bg} ${colors.text} hover:scale-110 hover:border-white/50 hover:text-white shadow-sm transition-transform z-20`}
                       `}
                   >
                     <Icon
-                      size={isActive ? (window.innerWidth < 768 ? 36 : 48) : 24}
+                      size={isActive ? (window.innerWidth < 768 ? 24 : 32) : 16}
                       strokeWidth={isActive ? 2 : 2}
                       className="transition-all duration-300"
                     />
@@ -154,23 +154,23 @@ const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => 
                 </div>
 
                 {/* Highly Stylized Label Container */}
-                <div className="flex flex-col items-center text-center h-16 justify-start mt-0">
+                <div className="flex flex-col items-center text-center h-12 justify-start mt-0">
                   <span className={`
-                        text-[10px] md:text-xs lg:text-sm font-black uppercase tracking-[0.2em] transition-all duration-300
+                        text-[9px] md:text-[10px] lg:text-xs font-black uppercase tracking-[0.15em] transition-all duration-300
                         ${isActive ? `${colors.text} drop-shadow-[0_0_10px_currentColor] scale-110 mb-1` : isCompleted ? colors.text : 'text-slate-500'}
                     `}>
                     {stage.title}
                   </span>
 
                   {/* Dynamic Status Tags */}
-                  <div className="h-6 flex items-center justify-center mt-1">
+                  <div className="h-5 flex items-center justify-center mt-0.5">
                     {isActive && (
-                      <span className="text-[8px] md:text-[9px] text-white font-bold tracking-widest uppercase bg-white/10 px-2.5 py-1 rounded-full border border-white/20 shadow-sm backdrop-blur-sm">
+                      <span className="text-[7px] md:text-[8px] text-white font-bold tracking-widest uppercase bg-white/10 px-2 py-0.5 rounded-full border border-white/20 shadow-sm backdrop-blur-sm">
                         In Progress
                       </span>
                     )}
                     {isCompleted && (
-                      <span className="text-[8px] md:text-[9px] font-bold tracking-widest uppercase text-slate-400 bg-slate-800/50 px-2 py-0.5 rounded-full border border-slate-700/50">
+                      <span className="text-[7px] md:text-[8px] font-bold tracking-widest uppercase text-slate-400 bg-slate-800/50 px-1.5 py-0.5 rounded-full border border-slate-700/50">
                         Completed
                       </span>
                     )}
