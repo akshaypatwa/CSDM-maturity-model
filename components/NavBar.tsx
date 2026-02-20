@@ -9,114 +9,90 @@ interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => {
   return (
-    <div className="w-full flex flex-col items-center justify-center py-4">
-      {/* Title */}
-      <div className="text-center mb-6">
-        <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 tracking-tight filter drop-shadow-sm">
-          CSDM MATURITY SIMULATOR
-        </h1>
-        <p className="text-slate-500 text-xs font-bold tracking-[0.4em] uppercase mt-2">
-          Strategic Transformation Journey
-        </p>
-      </div>
+    <div className="w-full flex flex-col items-center justify-center py-2 relative z-50">
 
-      {/* Enhanced Stepper Container - Light Glass Cockpit Look */}
-      <div className="relative w-full max-w-6xl px-4 md:px-12 py-6 bg-white/60 backdrop-blur-xl rounded-full border border-slate-200 shadow-xl overflow-hidden">
-        {/* Decorative Grid inside navbar */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
-        
-        {/* The Track Line */}
-        <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-200 -translate-y-1/2 z-0"></div>
-        
-        {/* Animated Active Progress Line (Data Flow) */}
-        <motion.div 
-          className="absolute top-1/2 left-0 h-1 -translate-y-1/2 z-0"
-          style={{ 
-              background: 'linear-gradient(90deg, #06b6d4, #3b82f6, #a855f7, #06b6d4)', 
-              backgroundSize: '200% 100%' 
-          }}
+      {/* Title Section */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center relative z-10"
+      >
+        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+          CSDM <span className="text-blue-600">MATURITY</span>
+        </h1>
+      </motion.div>
+
+      {/* Main Stepper Container */}
+      <div className="relative w-full max-w-6xl px-4 md:px-16">
+
+        {/* Track Background - Solid & Thick */}
+        <div className="absolute top-[3rem] left-0 md:left-12 right-0 md:right-12 h-2 bg-slate-200 rounded-full mx-8 md:mx-16 z-0" />
+
+        {/* Active Progress Track - Solid Gradient */}
+        <motion.div
+          className="absolute top-[3rem] left-0 md:left-12 h-2 rounded-full mx-8 md:mx-16 z-0 bg-gradient-to-r from-blue-600 to-cyan-500 shadow-md"
           initial={{ width: '0%' }}
-          animate={{ 
-              width: `${(currentStageIndex / (STAGES.length - 1)) * 100}%`,
-              backgroundPosition: ['0% 0%', '100% 0%'] 
+          animate={{
+            width: `${(currentStageIndex / (STAGES.length - 1)) * 100}%`,
           }}
-          transition={{ 
-              width: { duration: 0.6, ease: "easeInOut" },
-              backgroundPosition: { duration: 2, repeat: Infinity, ease: "linear" } 
+          transition={{
+            duration: 0.5, ease: "easeInOut"
           }}
         />
 
-        <div className="flex justify-between items-center relative z-10 w-full">
+        {/* Stages */}
+        <div className="flex justify-between items-start relative z-10 w-full">
           {STAGES.map((stage, index) => {
             const Icon = STAGE_ICONS[stage.id];
             const isActive = index === currentStageIndex;
             const isCompleted = index < currentStageIndex;
-            
-            return (
-              <div key={stage.id} className="flex flex-col items-center group cursor-pointer relative" onClick={() => onStageSelect(index)}>
-                
-                {/* Connection Dot on Line */}
-                <div className={`absolute top-[2.5rem] md:top-[3rem] w-full h-[2px] ${index === 0 ? 'hidden' : ''} ${isCompleted || isActive ? 'bg-cyan-500' : 'bg-slate-200'} -left-1/2 -z-10`} />
 
-                {/* Icon Container */}
-                <motion.div
-                  className={`
-                    w-12 h-12 md:w-24 md:h-24 rounded-full flex items-center justify-center border-[3px] transition-all duration-300 relative mb-3
-                    ${isActive 
-                      ? 'bg-white border-cyan-500 shadow-[0_0_30px_rgba(6,182,212,0.4)] z-20 scale-110' 
-                      : isCompleted 
-                        ? 'bg-white border-blue-500 text-blue-500 shadow-md' 
-                        : 'bg-slate-50 border-slate-300 text-slate-400'}
-                  `}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Icon 
-                    size={isActive ? 36 : 24} 
-                    strokeWidth={isActive ? 2.5 : 2}
+            return (
+              <div
+                key={stage.id}
+                className="flex flex-col items-center group cursor-pointer relative w-24 md:w-32"
+                onClick={() => onStageSelect(index)}
+              >
+
+                {/* Icon Circle - Bold & Solid - STABILIZED */}
+                <div className="relative h-32 w-32 flex items-center justify-center">
+                  <motion.div
                     className={`
-                      transition-all duration-300
-                      ${isActive ? 'text-cyan-600 drop-shadow-md' : isCompleted ? 'text-blue-500' : 'text-slate-400'}
-                    `} 
-                  />
-                  
-                  {/* Rotating Ring for Active */}
-                  {isActive && (
-                    <motion.div 
-                        className="absolute inset-[-6px] rounded-full border-2 border-cyan-500/30 border-t-transparent border-l-transparent"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        flex items-center justify-center rounded-full shadow-lg border-4 transition-colors duration-300 z-20 relative
+                        ${isActive
+                        ? 'w-28 h-28 border-white bg-cyan-600 text-white shadow-cyan-200 shadow-xl'
+                        : isCompleted
+                          ? 'w-14 h-14 border-white bg-blue-600 text-white'
+                          : 'w-14 h-14 border-slate-100 bg-white text-slate-300'}
+                      `}
+                    animate={{
+                      backgroundColor: isActive ? '#0891b2' : isCompleted ? '#2563eb' : '#ffffff',
+                      borderColor: '#ffffff',
+                    }}
+                  >
+                    <Icon
+                      size={isActive ? 48 : 24}
+                      strokeWidth={isActive ? 2 : 2}
+                      className="transition-all duration-300"
                     />
-                  )}
-                  {/* Pulse Ring */}
-                  {isActive && (
-                    <div className="absolute inset-0 rounded-full bg-cyan-400/10 animate-ping"></div>
-                  )}
-                </motion.div>
-                
-                {/* Label Block */}
-                <div className="flex flex-col items-center gap-1 absolute top-full mt-2 w-32 text-center">
-                    <span className={`
-                    text-[10px] md:text-sm font-black tracking-widest transition-all duration-300 uppercase
-                    ${isActive ? 'text-slate-900 scale-110' : isCompleted ? 'text-blue-600' : 'text-slate-400'}
+                  </motion.div>
+                </div>
+
+                {/* Label Container - Fixed Height to prevent Jitter */}
+                <div className="flex flex-col items-center text-center h-12 justify-start mt-1">
+                  <span className={`
+                        text-sm font-bold uppercase tracking-wide transition-colors
+                        ${isActive ? 'text-cyan-700' : isCompleted ? 'text-blue-700' : 'text-slate-400'}
                     `}>
                     {stage.title}
-                    </span>
-                    
-                    {/* Active Indicator Label */}
-                    <span className={`
-                        text-[8px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider
-                        ${isActive ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 opacity-100' : 'opacity-0'}
-                        transition-opacity duration-300
-                    `}>
-                        CURRENT STAGE
-                    </span>
+                  </span>
                 </div>
               </div>
             );
           })}
         </div>
       </div>
+
     </div>
   );
 };

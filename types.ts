@@ -10,6 +10,7 @@ export interface CsdmItem {
 export interface StageData {
   id: StageId;
   title: string;
+  scorecardTitle: string;
   subtitle: string;
   description: string;
   maturity: number; // 0-100

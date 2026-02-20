@@ -5,6 +5,7 @@ export const STAGES: StageData[] = [
   {
     id: 'foundation',
     title: 'Foundation',
+    scorecardTitle: 'Establish the Core',
     subtitle: 'Establishing Core Data',
     description: 'The bedrock of CSDM. Focusing on accurate referencing of core data and reporting requirements before moving to complex relationships.',
     maturity: 15,
@@ -29,6 +30,7 @@ export const STAGES: StageData[] = [
   {
     id: 'crawl',
     title: 'Crawl',
+    scorecardTitle: 'Inventory Applications',
     subtitle: 'Identifying Applications',
     description: 'Cataloging what you have. Creating the inventory of applications and services to begin basic management and ownership.',
     maturity: 35,
@@ -55,6 +57,7 @@ export const STAGES: StageData[] = [
   {
     id: 'walk',
     title: 'Walk',
+    scorecardTitle: 'Map Technical Services',
     subtitle: 'Connecting Infrastructure',
     description: 'Mapping the physical world to logical services. Moving from inventory to operational visibility and impact analysis.',
     maturity: 60,
@@ -80,6 +83,7 @@ export const STAGES: StageData[] = [
   {
     id: 'run',
     title: 'Run',
+    scorecardTitle: 'Manage Business Services',
     subtitle: 'Business Context',
     description: 'Adding business context to technology. Understanding who consumes services and managing the full lifecycle.',
     maturity: 80,
@@ -102,6 +106,7 @@ export const STAGES: StageData[] = [
   {
     id: 'fly',
     title: 'Fly',
+    scorecardTitle: 'Drive Strategic Value',
     subtitle: 'Strategic Intelligence',
     description: 'Full strategic alignment. Connecting investments to capabilities, optimizing portfolios, and enabling digital transformation.',
     maturity: 100,

@@ -1,3 +1,4 @@
+// Last updated: 2026-02-19T19:43:00
 import React, { useState } from 'react';
 import Background from './components/Background';
 import NavBar from './components/NavBar';
@@ -27,28 +28,29 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative h-screen w-screen text-slate-900 selection:bg-cyan-200 overflow-hidden flex flex-col font-sans bg-slate-50">
+    <div className="relative h-screen w-full text-slate-900 selection:bg-cyan-200 flex flex-col font-sans bg-slate-300 overflow-hidden">
       <Background />
-      
+
       {/* Top Navigation - Auto Height */}
       <header className="flex-none z-20 pt-2">
-         <NavBar 
-           currentStageIndex={currentStageIndex} 
-           onStageSelect={handleStageSelect}
-         />
+        <NavBar
+          currentStageIndex={currentStageIndex}
+          onStageSelect={handleStageSelect}
+        />
       </header>
 
       {/* Main Content - Flex Grow to fill space */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 w-full max-w-[1800px] mx-auto z-10 min-h-0 py-2">
-        <ContentPanel 
-          stage={STAGES[currentStageIndex]} 
+        <ContentPanel
+          stage={STAGES[currentStageIndex]}
           viewMode={viewMode}
+          setViewMode={setViewMode}
         />
       </main>
 
       {/* Footer Controls - Fixed Height */}
       <footer className="flex-none py-4 z-30 flex justify-center">
-        <Controls 
+        <Controls
           viewMode={viewMode}
           setViewMode={setViewMode}
           onNext={handleNext}
@@ -56,6 +58,7 @@ const App: React.FC = () => {
           canNext={currentStageIndex < STAGES.length - 1}
           canPrev={currentStageIndex > 0}
           currentStageIndex={currentStageIndex}
+          currentStage={STAGES[currentStageIndex]}
         />
       </footer>
     </div>
