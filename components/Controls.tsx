@@ -25,7 +25,7 @@ const Controls: React.FC<ControlsProps> = ({ viewMode, setViewMode, onNext, onPr
     if (isNext && !canNext) return `${base} ${disabled}`;
 
     switch (id) {
-      case 'foundation': return isNext ? `${base} bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200` : `${base} bg-white border-blue-200 text-blue-600 hover:bg-blue-50`;
+      case 'foundation': return isNext ? `${base} bg-emerald-600 border-emerald-600 text-white hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-200` : `${base} bg-white border-emerald-200 text-emerald-600 hover:bg-emerald-50`;
       case 'crawl': return isNext ? `${base} bg-cyan-600 border-cyan-600 text-white hover:bg-cyan-700 hover:shadow-lg hover:shadow-cyan-200` : `${base} bg-white border-cyan-200 text-cyan-600 hover:bg-cyan-50`;
       case 'walk': return isNext ? `${base} bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-200` : `${base} bg-white border-indigo-200 text-indigo-600 hover:bg-indigo-50`;
       case 'run': return isNext ? `${base} bg-amber-600 border-amber-600 text-white hover:bg-amber-700 hover:shadow-lg hover:shadow-amber-200` : `${base} bg-white border-amber-200 text-amber-600 hover:bg-amber-50`;
@@ -36,7 +36,7 @@ const Controls: React.FC<ControlsProps> = ({ viewMode, setViewMode, onNext, onPr
 
   const getTextTheme = (id: string) => {
     switch (id) {
-      case 'foundation': return "text-blue-500";
+      case 'foundation': return "text-emerald-500";
       case 'crawl': return "text-cyan-500";
       case 'walk': return "text-indigo-500";
       case 'run': return "text-amber-500";

@@ -130,14 +130,11 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode, setViewMod
                                 `}>
                                     {/* Abstract background graphic */}
                                     <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${theme.headerGradient} rounded-bl-full opacity-50`}></div>
-                                    <div className="relative z-10 flex flex-col items-center text-center">
-                                        <div className={`text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5 ${theme.textColor} opacity-70`}>
-                                            CURRENT MISSION
-                                        </div>
-                                        <h2 className={`text-lg md:text-xl font-black italic tracking-tighter uppercase leading-none bg-gradient-to-r ${theme.stripe} text-transparent bg-clip-text drop-shadow-sm`}>
+                                    <div className="relative z-10 flex flex-col items-center text-center py-2 h-full justify-center">
+                                        <h2 className={`text-base md:text-lg font-black italic tracking-tighter uppercase leading-none bg-gradient-to-r ${theme.stripe} text-transparent bg-clip-text drop-shadow-sm`}>
                                             {stage.scorecardTitle}
                                         </h2>
-                                        <div className={`mt-1.5 h-1 w-10 rounded-full bg-gradient-to-r ${theme.stripe}`}></div>
+                                        <div className={`mt-2 h-1 w-10 rounded-full bg-gradient-to-r ${theme.stripe}`}></div>
                                     </div>
                                 </div>
                             </div>
@@ -259,27 +256,25 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode, setViewMod
                                 </div>
                                 <div>
                                     <h4 className={`text-sm font-black uppercase tracking-widest ${theme.textColor}`}>
-                                        {viewMode === 'application' ? 'Apps' : 'Services'}
+                                        {viewMode === 'application' ? 'Applications' : 'Services'}
                                     </h4>
                                     <div className="text-slate-500 text-[10px] font-bold tracking-wider">ACTIVE OBJECTS</div>
                                 </div>
                             </div>
 
                             {/* Integrated View Toggle */}
-                            <div className="flex bg-slate-200/50 p-1 rounded-lg border border-slate-200/50 backdrop-blur-sm">
+                            <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-inner">
                                 <button
                                     onClick={() => setViewMode('application')}
-                                    className={`p-1.5 rounded-md transition-all ${viewMode === 'application' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-400 hover:text-slate-600'}`}
-                                    title="Application View"
+                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all text-[11px] font-black tracking-wider shadow-sm ${viewMode === 'application' ? `bg-white ${theme.iconColor} ring-1 ring-black/5` : 'text-slate-400 hover:text-slate-600 hover:bg-slate-200/50 shadow-none'}`}
                                 >
-                                    <Layout size={14} />
+                                    <Layout size={14} /> APPS
                                 </button>
                                 <button
                                     onClick={() => setViewMode('service')}
-                                    className={`p-1.5 rounded-md transition-all ${viewMode === 'service' ? 'bg-white shadow-sm text-purple-600' : 'text-slate-400 hover:text-slate-600'}`}
-                                    title="Service View"
+                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all text-[11px] font-black tracking-wider shadow-sm ${viewMode === 'service' ? `bg-white ${theme.iconColor} ring-1 ring-black/5` : 'text-slate-400 hover:text-slate-600 hover:bg-slate-200/50 shadow-none'}`}
                                 >
-                                    <Server size={14} />
+                                    <Server size={14} /> SVCS
                                 </button>
                             </div>
                         </div>
