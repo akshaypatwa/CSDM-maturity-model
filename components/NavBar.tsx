@@ -28,20 +28,34 @@ const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => 
         {/* Glassmorphism Container for Stepper */}
         <div className="absolute inset-x-0 top-[2rem] bottom-[-1rem] bg-slate-900/40 backdrop-blur-md rounded-full border border-slate-700/50 shadow-2xl -mx-4 md:-mx-8 z-0"></div>
 
-        {/* Track Background - Solid & Thick */}
-        <div className="absolute top-[3rem] left-0 md:left-12 right-0 md:right-12 h-1.5 bg-slate-800 rounded-full mx-8 md:mx-16 z-10 border border-slate-700 shadow-inner" />
+        {/* Track Roadmap Container - Perfectly centered under the icons */}
+        <div className="absolute top-0 left-16 md:left-32 right-16 md:right-32 h-32 flex flex-col justify-center z-10 pointer-events-none">
+          {/* Empty Roadmap Pipeline */}
+          <div className="w-full h-4 md:h-5 bg-slate-900 rounded-full border border-slate-700/60 shadow-inner flex items-center px-1">
+            <div className="w-full h-[2px] bg-[linear-gradient(to_right,#334155_50%,transparent_50%)] bg-[length:16px_100%] opacity-50" />
+          </div>
+        </div>
 
-        {/* Active Progress Track - Solid Gradient - GLOWING */}
-        <motion.div
-          className="absolute top-[3rem] left-0 md:left-12 h-1.5 rounded-full mx-8 md:mx-16 z-10 bg-gradient-to-r from-emerald-500 via-cyan-400 to-purple-500 shadow-[0_0_20px_rgba(52,211,153,0.6)]"
-          initial={{ width: '0%' }}
-          animate={{
-            width: `${(currentStageIndex / (STAGES.length - 1)) * 100}%`,
-          }}
-          transition={{
-            duration: 0.6, ease: "easeInOut"
-          }}
-        />
+        {/* Active Roadmap Pipeline - Glowing */}
+        <div className="absolute top-0 left-16 md:left-32 right-16 md:right-32 h-32 flex flex-col justify-center z-10 pointer-events-none">
+          <motion.div
+            className="h-4 md:h-5 rounded-full flex items-center overflow-hidden shadow-[0_0_20px_rgba(6,182,212,0.4)] relative"
+            style={{ backgroundImage: "linear-gradient(to right, #10b981, #06b6d4, #4f46e5, #d946ef, #a855f7)" }}
+            initial={{ width: '0%' }}
+            animate={{ width: `${(currentStageIndex / (STAGES.length - 1)) * 100}%` }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          >
+            {/* Lit up dashed line indicating movement */}
+            <div className="absolute inset-0 w-full min-w-[2000px] h-[2px] my-auto bg-[linear-gradient(to_right,rgba(255,255,255,0.7)_50%,transparent_50%)] bg-[length:16px_100%] opacity-90" />
+
+            {/* Flowing energy ping */}
+            <motion.div
+              className="absolute inset-y-0 w-24 md:w-40 bg-gradient-to-r from-transparent via-white/80 to-transparent skew-x-[-20deg]"
+              animate={{ x: ['-200%', '1000%'] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
+            />
+          </motion.div>
+        </div>
 
         {/* Stages */}
         <div className="flex justify-between items-start relative z-10 w-full">
@@ -111,35 +125,59 @@ const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => 
                 onClick={() => onStageSelect(index)}
               >
 
-                {/* Icon Circle - Bold & Solid - STABILIZED */}
+                {/* Icon Circle - Roadmap Node */}
                 <div className="relative h-32 w-32 flex items-center justify-center">
+
+                  {/* Outer Pulsing Ring for Active Stage */}
+                  {isActive && (
+                    <motion.div
+                      className={`absolute rounded-full border border-white/40 ${colors.activeBg} opacity-20`}
+                      style={{ width: '130px', height: '130px' }}
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0, 0.3] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  )}
+
                   <motion.div
                     className={`
-                        flex items-center justify-center rounded-full shadow-lg border-4 transition-colors duration-300 z-20 relative
+                        flex items-center justify-center rounded-full shadow-lg border-4 transition-all duration-300 z-20 relative
                         ${isActive
-                        ? `w-28 h-28 border-white ${colors.activeBg} text-white ${colors.activeShadow} z-30`
+                        ? `w-24 h-24 md:w-28 md:h-28 border-white ${colors.activeBg} text-white ${colors.activeShadow} z-30`
                         : isCompleted
-                          ? `w-16 h-16 border-white/20 border-2 ${colors.activeBg} text-white/90 shadow-lg backdrop-blur-sm opacity-90`
-                          : `w-16 h-16 border-2 ${colors.ring} ${colors.bg} ${colors.text} hover:scale-110 hover:border-white/50 hover:text-white shadow-lg transition-transform`}
+                          ? `w-14 h-14 md:w-16 md:h-16 border-white/20 border-2 ${colors.activeBg} text-white/90 shadow-lg backdrop-blur-sm opacity-90 z-20`
+                          : `w-14 h-14 md:w-16 md:h-16 border-2 ${colors.ring} ${colors.bg} ${colors.text} hover:scale-110 hover:border-white/50 hover:text-white shadow-lg transition-transform z-20`}
                       `}
-
                   >
                     <Icon
-                      size={isActive ? 48 : 24}
+                      size={isActive ? (window.innerWidth < 768 ? 36 : 48) : 24}
                       strokeWidth={isActive ? 2 : 2}
                       className="transition-all duration-300"
                     />
                   </motion.div>
                 </div>
 
-                {/* Label Container - Fixed Height to prevent Jitter */}
-                <div className="flex flex-col items-center text-center h-12 justify-start mt-1">
+                {/* Highly Stylized Label Container */}
+                <div className="flex flex-col items-center text-center h-16 justify-start mt-0">
                   <span className={`
-                        text-sm font-bold uppercase tracking-widest transition-colors mt-2
-                        ${isActive ? `${colors.text} drop-shadow-[0_0_8px_currentColor]` : isCompleted ? colors.text : 'text-slate-500'}
+                        text-[10px] md:text-xs lg:text-sm font-black uppercase tracking-[0.2em] transition-all duration-300
+                        ${isActive ? `${colors.text} drop-shadow-[0_0_10px_currentColor] scale-110 mb-1` : isCompleted ? colors.text : 'text-slate-500'}
                     `}>
                     {stage.title}
                   </span>
+
+                  {/* Dynamic Status Tags */}
+                  <div className="h-6 flex items-center justify-center mt-1">
+                    {isActive && (
+                      <span className="text-[8px] md:text-[9px] text-white font-bold tracking-widest uppercase bg-white/10 px-2.5 py-1 rounded-full border border-white/20 shadow-sm backdrop-blur-sm">
+                        In Progress
+                      </span>
+                    )}
+                    {isCompleted && (
+                      <span className="text-[8px] md:text-[9px] font-bold tracking-widest uppercase text-slate-400 bg-slate-800/50 px-2 py-0.5 rounded-full border border-slate-700/50">
+                        Completed
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             );
