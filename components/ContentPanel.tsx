@@ -121,18 +121,31 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode, setViewMod
                             </div>
                         </div>
 
-                        <div className="flex-1 flex flex-col p-5">
+                        <div className="flex-1 flex flex-col p-3 overflow-y-auto custom-scrollbar">
                             {/* Scorecard Title - Dynamic */}
-                            <div className="text-center mb-4">
-                                <h4 className={`text-sm font-bold uppercase tracking-wide opacity-80 ${theme.textColor}`}>
-                                    {stage.scorecardTitle}
-                                </h4>
+                            {/* Scorecard Title - Dynamic & Prominent */}
+                            <div className="flex justify-center mb-3 w-full shrink-0">
+                                <div className={`
+                                    relative w-full max-w-[280px] py-2 px-4 rounded-2xl border ${theme.cardBorder} shadow-lg bg-white overflow-hidden group hover:-translate-y-1 transition-transform duration-300
+                                `}>
+                                    {/* Abstract background graphic */}
+                                    <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${theme.headerGradient} rounded-bl-full opacity-50`}></div>
+                                    <div className="relative z-10 flex flex-col items-center text-center">
+                                        <div className={`text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5 ${theme.textColor} opacity-70`}>
+                                            CURRENT MISSION
+                                        </div>
+                                        <h2 className={`text-lg md:text-xl font-black italic tracking-tighter uppercase leading-none bg-gradient-to-r ${theme.stripe} text-transparent bg-clip-text drop-shadow-sm`}>
+                                            {stage.scorecardTitle}
+                                        </h2>
+                                        <div className={`mt-1.5 h-1 w-10 rounded-full bg-gradient-to-r ${theme.stripe}`}></div>
+                                    </div>
+                                </div>
                             </div>
 
                             {/* Main Gauge */}
-                            <div className="flex-1 flex flex-col items-center justify-center min-h-[180px] relative">
+                            <div className="flex-1 flex flex-col items-center justify-center min-h-[140px] relative shrink-0">
                                 {/* Water Fill Container */}
-                                <div className={`relative w-48 h-48 rounded-full border-4 ${theme.cardBorder} bg-white shadow-inner overflow-hidden`}>
+                                <div className={`relative w-40 h-40 rounded-full border-4 ${theme.cardBorder} bg-white shadow-inner overflow-hidden transform scale-90`}>
 
                                     {/* Water Level - Dynamic Color based on Theme */}
                                     <motion.div
@@ -195,7 +208,7 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ stage, viewMode, setViewMod
                             </div>
 
                             {/* ANIMATION BOX (Compact & Tight) - Light Container */}
-                            <div className="w-full h-40 bg-slate-50 rounded-2xl border border-slate-200 relative overflow-hidden flex flex-col items-center justify-center shadow-inner group flex-none mt-2">
+                            <div className="w-full h-32 bg-slate-50 rounded-2xl border border-slate-200 relative overflow-hidden flex flex-col items-center justify-center shadow-inner group shrink-0 mt-auto">
                                 {/* Grid Background */}
                                 <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
 

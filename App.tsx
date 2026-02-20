@@ -28,7 +28,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative h-screen w-full text-slate-900 selection:bg-cyan-200 flex flex-col font-sans bg-slate-300 overflow-hidden">
+    <div className="relative h-screen w-full text-slate-100 selection:bg-cyan-500 selection:text-white flex flex-col font-sans bg-slate-900 overflow-hidden">
       <Background />
 
       {/* Top Navigation - Auto Height */}
