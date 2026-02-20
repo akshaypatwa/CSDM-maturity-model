@@ -25,9 +25,6 @@ const NavBar: React.FC<NavBarProps> = ({ currentStageIndex, onStageSelect }) => 
       {/* Main Stepper Container */}
       <div className="relative w-full max-w-6xl px-4 md:px-16">
 
-        {/* Glassmorphism Container for Stepper */}
-        <div className="absolute inset-x-0 top-[2rem] bottom-[-1rem] bg-slate-900/40 backdrop-blur-md rounded-full border border-slate-700/50 shadow-2xl -mx-4 md:-mx-8 z-0"></div>
-
         {/* Track Roadmap Container - Perfectly centered under the icons */}
         <div className="absolute top-0 left-16 md:left-32 right-16 md:right-32 h-32 flex flex-col justify-center z-10 pointer-events-none">
           {/* Empty Roadmap Pipeline */}
