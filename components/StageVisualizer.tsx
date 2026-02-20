@@ -45,7 +45,7 @@ const ProcessHeader: React.FC<{ stageId: StageId }> = ({ stageId }) => {
     case 'foundation':
       label = "CORE DATA SETUP";
       subLabel = "ESTABLISH TRUSTED SOURCES";
-      gradientClass = "from-emerald-500 via-emerald-600 to-emerald-500 text-white shadow-emerald-500/20";
+      gradientClass = "from-emerald-600 via-emerald-700 to-emerald-600 text-white shadow-emerald-700/20";
       icon = <Database size={24} className="text-white" />;
       break;
     case 'crawl':
@@ -57,19 +57,19 @@ const ProcessHeader: React.FC<{ stageId: StageId }> = ({ stageId }) => {
     case 'walk':
       label = "ENABLE: SERVICE MAPPING";
       subLabel = "DEFINE DEPENDENCIES";
-      gradientClass = "from-indigo-500 via-indigo-600 to-indigo-500 text-white shadow-indigo-500/20";
+      gradientClass = "from-indigo-600 via-indigo-700 to-indigo-600 text-white shadow-indigo-700/20";
       icon = <Route size={24} className="text-white" />;
       break;
     case 'run':
       label = "ENABLE: EVENT MGMT";
       subLabel = "HEALTH & REMEDIATION";
-      gradientClass = "from-amber-500 via-orange-500 to-amber-500 text-white shadow-orange-500/20";
+      gradientClass = "from-orange-600 via-orange-700 to-orange-600 text-white shadow-orange-700/20";
       icon = <Zap size={24} className="text-white" />;
       break;
     case 'fly':
       label = "ENABLE: APM & SPM";
       subLabel = "STRATEGIC PORTFOLIO";
-      gradientClass = "from-purple-500 via-fuchsia-600 to-purple-500 text-white shadow-purple-500/20";
+      gradientClass = "from-purple-600 via-purple-700 to-purple-600 text-white shadow-purple-700/20";
       icon = <Rocket size={24} className="text-white" />;
       break;
   }
@@ -101,13 +101,18 @@ const FoundationVisual = () => (
       {/* Scale up the grid area */}
       <div className="relative w-full max-w-lg h-56 lg:h-64 flex items-center justify-center [perspective:800px]">
         {/* Base Platform - Solid Light Surface */}
-        <div className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 w-64 lg:w-96 h-32 bg-slate-50 rounded-[20px] transform rotate-x-60 border-4 border-slate-200 shadow-sm" />
+        <div className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 w-64 lg:w-96 h-32 bg-emerald-50 rounded-[20px] transform rotate-x-60 border-4 border-emerald-200" />
 
-        {/* Animated Subtle Blocks */}
+        {/* Animated Solid Blocks */}
         {[...Array(9)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute left-1/2 top-1/2 -ml-8 -mt-12 lg:-ml-10 lg:-mt-16 w-16 h-12 lg:w-20 lg:h-16 rounded-lg shadow-sm flex items-center justify-center z-10 border border-slate-200 bg-white"
+            className="absolute left-1/2 top-1/2 -ml-8 -mt-12 lg:-ml-10 lg:-mt-16 w-16 h-12 lg:w-20 lg:h-16 rounded-lg shadow-[0_15px_30px_rgba(16,185,129,0.3)] flex items-center justify-center z-10"
+            style={{
+              background: 'linear-gradient(135deg, #34d399 0%, #059669 100%)', // Solid Emerald Gradient
+              borderTop: '1px solid rgba(255,255,255,0.4)',
+              borderLeft: '1px solid rgba(255,255,255,0.2)'
+            }}
             initial={{ x: (Math.random() - 0.5) * 400, y: -400, rotate: (Math.random() - 0.5) * 180, opacity: 0, scale: 0.5 }}
             animate={{
               x: (i % 3 - 1) * (window.innerWidth < 1024 ? 70 : 90),
@@ -118,19 +123,19 @@ const FoundationVisual = () => (
             }}
             transition={{ duration: 1.2, delay: i * 0.1, type: "spring", stiffness: 60, damping: 12 }}
           >
-            {/* Emerald Accent Strip */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-400 rounded-t-lg"></div>
+            {/* Glossy highlight */}
+            <div className="absolute top-0 left-0 right-0 h-1/2 bg-white/20 rounded-t-lg pointer-events-none"></div>
 
-            <Database className="text-emerald-600 w-5 h-5 lg:w-6 lg:h-6 opacity-80" />
+            <Database className="text-white drop-shadow-md w-5 h-5 lg:w-7 lg:h-7" />
 
             {/* Verified Badge */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 1.5 + i * 0.1 }}
-              className="absolute -bottom-2 -right-2 w-4 h-4 lg:w-5 lg:h-5 bg-emerald-50 rounded-full flex items-center justify-center border border-emerald-200 shadow-sm"
+              className="absolute -bottom-2 -right-2 w-5 h-5 lg:w-6 lg:h-6 bg-white rounded-full flex items-center justify-center border-2 border-emerald-500 shadow-md"
             >
-              <Check size={10} className="text-emerald-600 font-bold" strokeWidth={3} />
+              <Check size={12} className="text-emerald-600 font-bold" strokeWidth={4} />
             </motion.div>
           </motion.div>
         ))}
@@ -259,24 +264,24 @@ const WalkVisual = () => (
       {/* Scaled Up Map */}
       <div className="relative w-full max-w-lg lg:max-w-2xl h-64 lg:h-80 flex items-center justify-center">
 
-        {/* Top Node (Business App) - Subtle Card */}
+        {/* Top Node (Business App) - Solid Card */}
         <motion.div
           className="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center z-20"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
         >
-          <div className="w-40 lg:w-48 p-2 lg:p-3 bg-white rounded-xl shadow-sm flex items-center gap-3 border border-slate-200 border-l-4 border-l-indigo-400 z-20 relative hover:shadow-md transition-shadow">
-            <div className="bg-slate-50 p-2 rounded-lg border border-slate-100"><Globe className="text-indigo-500 w-5 h-5" /></div>
+          <div className="w-40 lg:w-48 p-2 lg:p-3 bg-white rounded-xl shadow-[0_8px_20px_rgba(37,99,235,0.15)] flex items-center gap-3 border-l-4 border-blue-600 z-20 relative">
+            <div className="bg-blue-100 p-2 rounded-lg"><Globe className="text-blue-600 w-5 h-5" /></div>
             <div className="text-left">
               <div className="text-slate-800 font-bold text-xs lg:text-sm">Order System</div>
-              <div className="text-slate-500 text-[10px] lg:text-xs">Business App</div>
+              <div className="text-slate-500 text-[10px] lg:text-xs">Application Svc</div>
             </div>
           </div>
           {/* Connection Point */}
-          <div className="w-3 h-3 bg-white rounded-full border-2 border-slate-300 absolute -bottom-1.5 left-1/2 -translate-x-1/2 z-30 shadow-sm"></div>
+          <div className="w-3 h-3 bg-blue-600 rounded-full border-2 border-white absolute -bottom-1.5 left-1/2 -translate-x-1/2 z-30 shadow-sm"></div>
         </motion.div>
 
-        {/* Bottom Nodes (Infrastructure) - Subtle Cards */}
+        {/* Bottom Nodes (Infrastructure) - Solid Cards */}
         <div className="absolute bottom-4 lg:bottom-10 w-full flex justify-between px-6 lg:px-10">
           <motion.div
             className="flex flex-col items-center z-20 relative"
@@ -285,10 +290,10 @@ const WalkVisual = () => (
             transition={{ delay: 0.3 }}
           >
             {/* Connection Point */}
-            <div className="w-3 h-3 bg-white rounded-full border-2 border-slate-300 absolute -top-1.5 left-1/2 -translate-x-1/2 z-30 shadow-sm"></div>
+            <div className="w-3 h-3 bg-slate-500 rounded-full border-2 border-white absolute -top-1.5 left-1/2 -translate-x-1/2 z-30 shadow-sm"></div>
 
-            <div className="w-32 lg:w-40 p-2 lg:p-3 bg-white rounded-xl shadow-sm border border-slate-200 border-l-4 border-l-indigo-300 flex items-center gap-2 lg:gap-3">
-              <div className="bg-slate-50 border border-slate-100 p-1.5 rounded-lg"><Server className="text-slate-500 w-4 h-4 lg:w-5 lg:h-5" /></div>
+            <div className="w-32 lg:w-40 p-2 lg:p-3 bg-white rounded-xl shadow-lg border-l-4 border-slate-500 flex items-center gap-2 lg:gap-3">
+              <div className="bg-slate-100 p-1.5 rounded-lg"><Server className="text-slate-600 w-4 h-4 lg:w-5 lg:h-5" /></div>
               <div className="text-left">
                 <div className="text-slate-800 font-bold text-xs lg:text-sm">DB Server 01</div>
                 <div className="text-slate-500 text-[10px] lg:text-xs">RedHat Linux</div>
@@ -303,10 +308,10 @@ const WalkVisual = () => (
             transition={{ delay: 0.5 }}
           >
             {/* Connection Point */}
-            <div className="w-3 h-3 bg-white rounded-full border-2 border-slate-300 absolute -top-1.5 left-1/2 -translate-x-1/2 z-30 shadow-sm"></div>
+            <div className="w-3 h-3 bg-slate-500 rounded-full border-2 border-white absolute -top-1.5 left-1/2 -translate-x-1/2 z-30 shadow-sm"></div>
 
-            <div className="w-32 lg:w-40 p-2 lg:p-3 bg-white rounded-xl shadow-sm border border-slate-200 border-l-4 border-l-indigo-300 flex items-center gap-2 lg:gap-3">
-              <div className="bg-slate-50 border border-slate-100 p-1.5 rounded-lg"><Database className="text-slate-500 w-4 h-4 lg:w-5 lg:h-5" /></div>
+            <div className="w-32 lg:w-40 p-2 lg:p-3 bg-white rounded-xl shadow-lg border-l-4 border-slate-500 flex items-center gap-2 lg:gap-3">
+              <div className="bg-slate-100 p-1.5 rounded-lg"><Database className="text-slate-600 w-4 h-4 lg:w-5 lg:h-5" /></div>
               <div className="text-left">
                 <div className="text-slate-800 font-bold text-xs lg:text-sm">Oracle DB</div>
                 <div className="text-slate-500 text-[10px] lg:text-xs">Primary Inst</div>
@@ -315,49 +320,52 @@ const WalkVisual = () => (
           </motion.div>
         </div>
 
-        {/* Subtle Lines Instead of Heavy Gradients */}
+        {/* Dynamic SVG Lines - Solid & Smooth */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
+          <defs>
+            <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#2563eb" />
+              <stop offset="100%" stopColor="#64748b" />
+            </linearGradient>
+          </defs>
           {/* Left Path */}
           <motion.path
             d="M336 45 C 336 150, 100 150, 100 230"
             fill="none"
-            stroke="#cbd5e1"
-            strokeWidth="2"
-            strokeDasharray="4 4"
+            stroke="url(#lineGrad)"
+            strokeWidth="3"
             strokeLinecap="round"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
             transition={{ duration: 1.5, delay: 0.5 }}
-            className="hidden lg:block opacity-60"
+            className="hidden lg:block drop-shadow-sm"
           />
           {/* Right Path */}
           <motion.path
             d="M336 45 C 336 150, 570 150, 570 230"
             fill="none"
-            stroke="#cbd5e1"
-            strokeWidth="2"
-            strokeDasharray="4 4"
+            stroke="url(#lineGrad)"
+            strokeWidth="3"
             strokeLinecap="round"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
             transition={{ duration: 1.5, delay: 0.7 }}
-            className="hidden lg:block opacity-60"
+            className="hidden lg:block drop-shadow-sm"
           />
 
           {/* Simple lines for small screens */}
-          <line x1="50%" y1="15%" x2="20%" y2="85%" stroke="#cbd5e1" strokeDasharray="4 4" strokeWidth="2" className="lg:hidden opacity-60" />
-          <line x1="50%" y1="15%" x2="80%" y2="85%" stroke="#cbd5e1" strokeDasharray="4 4" strokeWidth="2" className="lg:hidden opacity-60" />
+          <line x1="50%" y1="15%" x2="20%" y2="85%" stroke="#3b82f6" strokeWidth="3" className="lg:hidden" />
+          <line x1="50%" y1="15%" x2="80%" y2="85%" stroke="#3b82f6" strokeWidth="3" className="lg:hidden" />
         </svg>
 
         {/* Mapped Badge */}
         <motion.div
-          className="absolute top-1/2 bg-white border border-indigo-200 px-4 py-1.5 rounded-full text-indigo-600 text-[10px] lg:text-xs font-bold shadow-sm z-30 tracking-widest uppercase flex items-center gap-1.5"
+          className="absolute top-1/2 bg-indigo-500 border-2 border-white px-6 py-2 rounded-full text-white text-sm font-black shadow-lg z-30 tracking-widest"
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 2, type: "spring" }}
         >
-          <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse"></div>
-          Mapped
+          MAPPED
         </motion.div>
       </div>
     </div>
@@ -385,49 +393,42 @@ const RunVisual = () => (
     <div className="relative flex-1 w-full flex items-center justify-center">
       {/* Responsive Sizing */}
       <div className="relative w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72 flex items-center justify-center">
-        {/* Subtle Outline Rings */}
+        {/* Solid Rings */}
         <motion.div
-          className="absolute inset-0 rounded-full border-2 lg:border-[3px] border-slate-100 border-t-amber-300"
+          className="absolute inset-0 rounded-full border-[12px] lg:border-[16px] border-slate-200/50 border-t-amber-400 border-l-amber-500"
           animate={{ rotate: 360 }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute inset-4 lg:inset-6 rounded-full border-2 lg:border-[3px] border-slate-100 border-b-orange-300"
+          className="absolute inset-6 lg:inset-8 rounded-full border-[8px] lg:border-[10px] border-slate-200/40 border-b-orange-400 border-r-orange-500"
           animate={{ rotate: -360 }}
-          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
         />
-        <div className="absolute inset-8 lg:inset-12 border border-slate-100 rounded-full opacity-50 bg-slate-50"></div>
 
         {/* Center Hub */}
-        <div className="absolute inset-16 lg:inset-20 bg-white rounded-full border border-slate-200 shadow-sm flex items-center justify-center z-10">
-          <Zap className="text-amber-500 w-8 h-8 lg:w-10 lg:h-10 opacity-80" />
+        <div className="absolute inset-14 lg:inset-20 bg-white rounded-full border-4 border-orange-100 shadow-[0_0_30px_rgba(251,146,60,0.2)] flex items-center justify-center z-10">
+          <Zap className="text-amber-500 fill-amber-500 w-8 h-8 lg:w-12 lg:h-12 drop-shadow-md" />
         </div>
 
-        {/* Professional Health Metric Cards */}
+        {/* Pop-out Health Metric Cards */}
         <motion.div
-          className="absolute -top-4 -right-8 lg:-right-6 bg-white py-1.5 px-3 lg:p-2 rounded-lg border border-slate-200 shadow-sm z-20 flex flex-col items-center"
+          className="absolute -top-4 -right-8 lg:-right-12 bg-white p-2 lg:p-3 rounded-xl border border-green-200 shadow-xl z-20 flex flex-col items-center"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <div className="text-[8px] lg:text-[9px] text-slate-400 uppercase font-bold tracking-widest mb-0.5">Availability</div>
-          <div className="text-sm lg:text-lg font-bold text-slate-800 flex items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-            99.9%
-          </div>
+          <div className="text-[9px] lg:text-[10px] text-slate-500 uppercase font-bold tracking-wider">Availability</div>
+          <div className="text-base lg:text-2xl font-black text-green-500">99.9%</div>
         </motion.div>
 
         <motion.div
-          className="absolute -bottom-4 -left-8 lg:-left-6 bg-white py-1.5 px-3 lg:p-2 rounded-lg border border-slate-200 shadow-sm z-20 flex flex-col items-center"
+          className="absolute -bottom-4 -left-8 lg:-left-12 bg-white p-2 lg:p-3 rounded-xl border border-red-200 shadow-xl z-20 flex flex-col items-center"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.7 }}
         >
-          <div className="text-[8px] lg:text-[9px] text-slate-400 uppercase font-bold tracking-widest mb-0.5">Incidents</div>
-          <div className="text-sm lg:text-lg font-bold text-slate-800 flex items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-slate-200"></div>
-            0
-          </div>
+          <div className="text-[9px] lg:text-[10px] text-slate-500 uppercase font-bold tracking-wider">Incidents</div>
+          <div className="text-base lg:text-2xl font-black text-red-500">0</div>
         </motion.div>
       </div>
     </div>
@@ -466,54 +467,54 @@ const FlyVisual = () => (
       ))}
 
       {/* Main Rocket Assembly */}
-      <div className="relative z-10 flex items-center justify-center scale-75 lg:scale-100 mt-6 mt-lg-0">
+      <div className="relative z-10 flex items-center justify-center scale-75 lg:scale-100">
+        {/* Engine Plume - Solid Colors */}
         <motion.div
-          initial={{ y: 50, opacity: 0 }}
+          className="absolute top-24 w-12 h-40 bg-gradient-to-t from-transparent via-cyan-400 to-white opacity-40 rounded-full blur-md"
+          animate={{ height: [120, 160, 120] }}
+          transition={{ duration: 0.2, repeat: Infinity }}
+        />
+
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
           className="relative z-20"
         >
-          {/* Subtle White Rocket */}
-          <Rocket className="text-slate-400 opacity-60" strokeWidth={1.5} size={100} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-slate-50 rounded-full flex items-center justify-center border border-slate-200">
-            <div className="w-2.5 h-2.5 bg-purple-400 rounded-full"></div>
+          {/* Solid White Rocket */}
+          <Rocket className="text-purple-600 fill-purple-100 drop-shadow-[0_10px_20px_rgba(0,0,0,0.1)]" size={140} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-cyan-400 rounded-full border-4 border-white shadow-sm"></div>
           </div>
 
-          {/* Engine Plume - Very Subtle */}
+          {/* Dashboard Screens - Bright White Cards */}
           <motion.div
-            className="absolute top-[85px] left-1/2 -translate-x-1/2 w-6 h-20 bg-gradient-to-t from-transparent to-purple-200 opacity-30 rounded-full blur-sm"
-            animate={{ height: [60, 80, 60], opacity: [0.2, 0.4, 0.2] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-
-          {/* Dashboard Screens - Professional Outline Cards */}
-          <motion.div
-            className="absolute -right-32 top-0 bg-white py-2 px-3 rounded-lg shadow-sm border border-slate-200 border-l-2 border-l-purple-400 w-32"
-            initial={{ x: 20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <div className="flex items-center gap-1.5 mb-1.5">
-              <BarChart3 className="text-purple-500 w-3.5 h-3.5" />
-              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">ROI Target</span>
-            </div>
-            <div className="h-1 w-full bg-slate-100 rounded-full mb-1 overflow-hidden"><div className="w-[92%] h-full bg-purple-400" /></div>
-            <div className="text-xs font-bold text-slate-800 text-right">+240%</div>
-          </motion.div>
-
-          <motion.div
-            className="absolute -left-32 bottom-4 bg-white py-2 px-3 rounded-lg shadow-sm border border-slate-200 border-l-2 border-l-purple-400 w-32"
-            initial={{ x: -20, opacity: 0 }}
+            className="absolute -right-36 top-0 bg-white p-3 rounded-xl shadow-xl border-l-4 border-green-500 w-32"
+            initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            <div className="flex items-center gap-1.5 mb-1.5">
-              <Layers className="text-purple-500 w-3.5 h-3.5" />
-              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Portfolio</span>
+            <div className="flex items-center gap-2 mb-2">
+              <BarChart3 className="text-green-500 w-5 h-5" />
+              <span className="text-[10px] font-bold text-slate-700">ROI</span>
             </div>
-            <div className="flex justify-between text-[10px] text-slate-600 font-medium">
+            <div className="h-1.5 w-full bg-slate-100 rounded-full mb-1 overflow-hidden"><div className="w-[92%] h-full bg-green-500" /></div>
+            <div className="text-xs font-black text-slate-800 text-right">+240%</div>
+          </motion.div>
+
+          <motion.div
+            className="absolute -left-36 bottom-10 bg-white p-3 rounded-xl shadow-xl border-l-4 border-purple-500 w-32"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 1.2 }}
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <Layers className="text-purple-500 w-5 h-5" />
+              <span className="text-[10px] font-bold text-slate-700">Portfolio</span>
+            </div>
+            <div className="flex justify-between text-[9px] text-slate-500 font-medium">
               <span>Rationalized</span>
-              <span className="text-purple-600 font-bold">12</span>
+              <span className="text-purple-600 font-bold">12 Apps</span>
             </div>
           </motion.div>
         </motion.div>
