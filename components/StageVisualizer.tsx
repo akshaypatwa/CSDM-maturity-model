@@ -39,57 +39,47 @@ const ProcessHeader: React.FC<{ stageId: StageId }> = ({ stageId }) => {
   let label = "";
   let subLabel = "";
   let containerClass = "";
-  let iconClass = "";
-  let iconBgClass = "";
+  let iconClass = "text-white";
+  let iconBgClass = "bg-white/10 border-white/20 shadow-inner backdrop-blur-sm";
   let icon = null;
 
   switch (stageId) {
     case 'foundation':
       label = "CORE DATA SETUP";
       subLabel = "ESTABLISH TRUSTED SOURCES";
-      containerClass = "bg-gradient-to-r from-emerald-50 via-white to-emerald-50 border-emerald-100 shadow-sm";
-      iconClass = "text-emerald-600";
-      iconBgClass = "bg-white border-emerald-200 shadow-sm";
+      containerClass = "bg-gradient-to-r from-emerald-900 to-teal-800 border-emerald-700 shadow-md";
       icon = <Database size={24} className={iconClass} />;
       break;
     case 'crawl':
       // The user specifically requested to keep Crawl bright.
       label = "ENABLE: DISCOVERY";
       subLabel = "POPULATE CMDB INVENTORY";
-      containerClass = "bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-500 text-white border-cyan-400 shadow-[0_4px_15px_rgba(6,182,212,0.3)]";
-      iconClass = "text-white";
-      iconBgClass = "bg-white/20 border-white/30 shadow-inner backdrop-blur-sm";
+      containerClass = "bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-500 border-cyan-400 shadow-[0_4px_15px_rgba(6,182,212,0.3)]";
       icon = <Search size={24} className={iconClass} />;
       break;
     case 'walk':
       label = "ENABLE: SERVICE MAPPING";
       subLabel = "DEFINE DEPENDENCIES";
-      containerClass = "bg-gradient-to-r from-indigo-50 via-white to-indigo-50 border-indigo-100 shadow-sm";
-      iconClass = "text-indigo-600";
-      iconBgClass = "bg-white border-indigo-200 shadow-sm";
+      containerClass = "bg-gradient-to-r from-slate-900 to-indigo-900 border-indigo-800 shadow-md";
       icon = <Route size={24} className={iconClass} />;
       break;
     case 'run':
       label = "ENABLE: EVENT MGMT";
       subLabel = "HEALTH & REMEDIATION";
-      containerClass = "bg-gradient-to-r from-orange-50 via-white to-orange-50 border-orange-100 shadow-sm";
-      iconClass = "text-orange-600";
-      iconBgClass = "bg-white border-orange-200 shadow-sm";
+      containerClass = "bg-gradient-to-r from-slate-900 to-orange-900 border-orange-800 shadow-md";
       icon = <Zap size={24} className={iconClass} />;
       break;
     case 'fly':
       label = "ENABLE: APM & SPM";
       subLabel = "STRATEGIC PORTFOLIO";
-      containerClass = "bg-gradient-to-r from-purple-50 via-white to-purple-50 border-purple-100 shadow-sm";
-      iconClass = "text-purple-600";
-      iconBgClass = "bg-white border-purple-200 shadow-sm";
+      containerClass = "bg-gradient-to-r from-slate-900 to-purple-900 border-purple-800 shadow-md";
       icon = <Rocket size={24} className={iconClass} />;
       break;
   }
 
   // Determine text color for rendering the text blocks
-  const textColorClass = stageId === 'crawl' ? 'text-white' : iconClass.replace('text-', 'text-').replace('-600', '-900');
-  const subTextColorClass = stageId === 'crawl' ? 'text-cyan-100' : iconClass.replace('-600', '-500');
+  const textColorClass = 'text-white';
+  const subTextColorClass = stageId === 'crawl' ? 'text-cyan-100' : 'text-slate-300';
 
   return (
     <div className={`w-full py-4 border-b ${containerClass} flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500`}>
