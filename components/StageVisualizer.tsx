@@ -51,10 +51,9 @@ const ProcessHeader: React.FC<{ stageId: StageId }> = ({ stageId }) => {
       icon = <Database size={24} className={iconClass} />;
       break;
     case 'crawl':
-      // The user specifically requested to keep Crawl bright.
       label = "ENABLE: DISCOVERY";
       subLabel = "POPULATE CMDB INVENTORY";
-      containerClass = "bg-gradient-to-r from-cyan-500 via-cyan-600 to-cyan-500 border-cyan-400 shadow-[0_4px_15px_rgba(6,182,212,0.3)]";
+      containerClass = "bg-gradient-to-r from-slate-900 to-cyan-900 border-cyan-800 shadow-md";
       icon = <Search size={24} className={iconClass} />;
       break;
     case 'walk':
@@ -83,8 +82,6 @@ const ProcessHeader: React.FC<{ stageId: StageId }> = ({ stageId }) => {
 
   return (
     <div className={`w-full py-4 border-b ${containerClass} flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500`}>
-      {/* Satin Shine Effect (Only visible on colored backgrounds) */}
-      {stageId === 'crawl' && <div className="absolute top-0 left-0 w-full h-1/2 bg-white/10"></div>}
 
       <div className="flex items-center gap-3 relative z-10 w-full px-6 justify-center">
         <div className={`p-2 rounded-lg border flex-shrink-0 ${iconBgClass}`}>
@@ -126,8 +123,8 @@ const FoundationVisual = () => (
             }}
             initial={{ x: (Math.random() - 0.5) * 400, y: -400, rotate: (Math.random() - 0.5) * 180, opacity: 0, scale: 0.5 }}
             animate={{
-              x: (i % 3 - 1) * (window.innerWidth < 1024 ? 70 : 90),
-              y: Math.floor(i / 3) * (window.innerWidth < 1024 ? 50 : 65) - (window.innerWidth < 1024 ? 50 : 65),
+              x: (i % 3 - 1) * (window.innerWidth < 1024 ? 80 : 115),
+              y: Math.floor(i / 3) * (window.innerWidth < 1024 ? 60 : 80) - (window.innerWidth < 1024 ? 60 : 80),
               rotate: 0,
               opacity: 1,
               scale: 1
